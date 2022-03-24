@@ -1,0 +1,21 @@
+# ninja log v5
+0	122	6694872430505236	CMakeFiles/VS_debug.dir/tinyxmlerror.cpp.obj	997f19b7593d270b
+14	289	6693129049991089	CMakeFiles/VS.dir/tinyxmlparser.cpp.obj	85129857ec116195
+0	190	6693111481885218	CMakeFiles/PSE98.dir/main.cpp.obj	268dc12c78a54e2c
+191	307	6693111483042116	PSE98.exe	6ce36103acf5808a
+10	265	6693129049482463	CMakeFiles/VS.dir/tinyxmlerror.cpp.obj	f2e2e8a842c31510
+14	306	6695167102662545	CMakeFiles/VS.dir/baan.cpp.obj	68c45d96a02eaa4a
+16	207	6693129048913978	CMakeFiles/VS.dir/tinystr.cpp.obj	e55508ca616d1ea
+19	236	6695142908959416	CMakeFiles/VS.dir/voertuiggenerator.cpp.obj	712cee1386ae5fa6
+273	401	6695168376394459	VS.exe	f2179e143962b4b8
+2	229	6695167557159256	CMakeFiles/VS.dir/verkeerslicht.cpp.obj	9af69a4cc08045dc
+2	273	6695168375137917	CMakeFiles/VS.dir/main.cpp.obj	a46e3bb6fa3ba1b3
+12	328	6693129050396164	CMakeFiles/VS.dir/tinyxml.cpp.obj	5dca8dc8dcb1644d
+13	229	6693141963645743	CMakeFiles/VS.dir/voertuigen.cpp.obj	cf70fd3036108531
+1	207	6698293810393571	build.ninja	a997c25a4f83f6c
+16	300	6695167102602705	CMakeFiles/VS.dir/voertuig.cpp.obj	306a3d2013e421d
+19	182	6694967688638202	CMakeFiles/VS.dir/helperfunctions.cpp.obj	9bc0c36c72db3da8
+10	121	6694872430505236	CMakeFiles/VS_debug.dir/TESTS.cpp.obj	2355e3055eb08325
+12	136	6694872430669871	CMakeFiles/VS_debug.dir/tinystr.cpp.obj	75dddca85507cfc6
+14	265	6694872431949882	CMakeFiles/VS_debug.dir/tinyxml.cpp.obj	df4bb7c010739737
+14	270	6694985904266752	CMakeFiles/VS.dir/xmlexporter.cpp.obj	dc0ef71bcdbf01ec
