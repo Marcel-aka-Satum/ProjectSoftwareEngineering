@@ -11,7 +11,7 @@
 using namespace std;
 
 
-class Voertuig : protected Baan{
+class Voertuig{
 private:
     Voertuig* _initCheck;
     Baan* fBaan;
@@ -32,6 +32,9 @@ private:
     double fVolgafstand;
     double fSnelheidsverschil;
     double fDelta;
+    string type;
+
+
 public:
     Voertuig();
 
@@ -55,7 +58,7 @@ public:
 
     void change_positie();
 
-    void change_versnelling();
+    void change_versnelling(vector<Voertuig*> vectVoertuigen);
 
     int getFindexVoertuig();
 
@@ -65,17 +68,21 @@ public:
 
     int getFMinVolgafstand();
 
-    void checkInBaan();
+    void checkInBaan(Baan b1, vector<Voertuig*> vectVoertuigen);
 
-    void vertragen();
+    void vertragen(vector<Voertuig*> vectVoertuigen);
 
-    void versnellen();
+    void versnellen(vector<Voertuig*> vectVoertuigen);
 
     void stoppen();
 
     void setFSimulatietijd(double fSimulatietijd);
 
     double getFSimulatietijd();
+
+    const string &getType() const;
+
+    void setType(const string &type);
 };
 
 

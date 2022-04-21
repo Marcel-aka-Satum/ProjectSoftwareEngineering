@@ -39,6 +39,14 @@ bool Voertuiggenerator::properlyInitialized() {
     return _initCheck == this;
 }
 
+const string &Voertuiggenerator::getType() const {
+    return type;
+}
+
+void Voertuiggenerator::setType(const string &type) {
+    Voertuiggenerator::type = type;
+}
+
 
 
 

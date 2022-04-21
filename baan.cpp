@@ -51,22 +51,22 @@ int Baan::getTijd(){
     return fTijd;
 }
 
-const vector<Voertuig *> &Baan::getVectVoertuigen(){
+vector<Voertuig *> &Baan::getVectVoertuigen(){
     REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer getVectVoertuigen werd opgeroepen");
     return vectVoertuigen;
 }
 
-void Baan::addVector(Voertuig *v1) {
+void Baan::addVector(Voertuig *v1, vector<Voertuig*> &vectVoertuigen2) {
     REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer addVector werd opgeroepen");
-    vectVoertuigen.push_back(v1);
+    vectVoertuigen2.push_back(v1);
     ENSURE(v1 != NULL, "het moet een voertuig zijn");
 }
 
-int Baan::searchVoertuig(Voertuig* v){
+int Baan::searchVoertuig(Voertuig* v, Baan b1, vector<Voertuig*> vectVoertuigen2){
     REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer searchVoertuig werd opgeroepen");
 
-    for(long long unsigned int i = 0; i < vectVoertuigen.size(); i++){
-        if(vectVoertuigen[i] == v){
+    for(long long unsigned int i = 0; i < vectVoertuigen2.size(); i++){
+        if(vectVoertuigen2[i] == v){
             return i;
         }
     }
@@ -74,18 +74,18 @@ int Baan::searchVoertuig(Voertuig* v){
     return -1;
 }
 
-void Baan::insertionSort(){
+void Baan::insertionSort(vector<Voertuig*> &vectVoertuigen2){
     REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer insertionSort werd opgeroepen");
-    int n = vectVoertuigen.size() - 1;
+    int n = vectVoertuigen2.size() - 1;
     int key;
     int j;
     for(int i = 1; i <= n; i++){
-        key = vectVoertuigen[i]->getPositie();
+        key = vectVoertuigen2[i]->getPositie();
         j = i - 1;
-        while(j >= 0 && vectVoertuigen[j]->getPositie() > key){
-            Voertuig* temp = vectVoertuigen[j+1];
-            vectVoertuigen[j + 1] = vectVoertuigen[j];
-            vectVoertuigen[j] = temp;
+        while(j >= 0 && vectVoertuigen2[j]->getPositie() > key){
+            Voertuig* temp = vectVoertuigen2[j+1];
+            vectVoertuigen2[j + 1] = vectVoertuigen2[j];
+            vectVoertuigen2[j] = temp;
             j = j-1;
         }
     }
@@ -95,7 +95,7 @@ bool Baan::properlyInitialized() {
     return _initCheck == this;
 }
 
-const vector<Verkeerslicht *> &Baan::getFVerkeerslichten() const {
+vector<Verkeerslicht *> &Baan::getFVerkeerslichten(){
     return fVerkeerslichten;
 }
 
@@ -103,6 +103,22 @@ void Baan::setTijd(int tijd2) {
     Baan::fTijd = tijd2;
 }
 
-void Baan::addVerkeerslicht(Verkeerslicht* v1){
-    fVerkeerslichten.push_back(v1);
+void Baan::addVerkeerslicht(Verkeerslicht* v1, vector<Verkeerslicht*> &fVerkeerslichten2){
+    fVerkeerslichten2.push_back(v1);
+}
+
+Bushalte *Baan::getBushalte2() const {
+    return bushalte2;
+}
+
+void Baan::setBushalte2(Bushalte *bushalte) {
+    Baan::bushalte2 = bushalte;
+}
+
+void Baan::addToKruispunten(Kruispunt *k1) {
+    fKruispunten.push_back(k1);
+}
+
+vector<Kruispunt *> &Baan::getFKruispunten(){
+    return fKruispunten;
 }

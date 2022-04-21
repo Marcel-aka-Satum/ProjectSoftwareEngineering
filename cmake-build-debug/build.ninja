@@ -112,6 +112,20 @@ build CMakeFiles/VS.dir/voertuiggenerator.cpp.obj: CXX_COMPILER__VS_Debug C$:/Us
   OBJECT_DIR = CMakeFiles\VS.dir
   OBJECT_FILE_DIR = CMakeFiles\VS.dir
 
+build CMakeFiles/VS.dir/bushalte.cpp.obj: CXX_COMPILER__VS_Debug C$:/Users/marcel/CLionProjects/PSE98/bushalte.cpp || cmake_object_order_depends_target_VS
+  DEP_FILE = CMakeFiles\VS.dir\bushalte.cpp.obj.d
+  FLAGS = -Wall -Werror -g -std=gnu++98
+  INCLUDES = -IC:/Users/marcel/CLionProjects/PSE98/gtest/include
+  OBJECT_DIR = CMakeFiles\VS.dir
+  OBJECT_FILE_DIR = CMakeFiles\VS.dir
+
+build CMakeFiles/VS.dir/kruispunt.cpp.obj: CXX_COMPILER__VS_Debug C$:/Users/marcel/CLionProjects/PSE98/kruispunt.cpp || cmake_object_order_depends_target_VS
+  DEP_FILE = CMakeFiles\VS.dir\kruispunt.cpp.obj.d
+  FLAGS = -Wall -Werror -g -std=gnu++98
+  INCLUDES = -IC:/Users/marcel/CLionProjects/PSE98/gtest/include
+  OBJECT_DIR = CMakeFiles\VS.dir
+  OBJECT_FILE_DIR = CMakeFiles\VS.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target VS
@@ -120,7 +134,7 @@ build CMakeFiles/VS.dir/voertuiggenerator.cpp.obj: CXX_COMPILER__VS_Debug C$:/Us
 #############################################
 # Link the executable VS.exe
 
-build VS.exe: CXX_EXECUTABLE_LINKER__VS_Debug CMakeFiles/VS.dir/main.cpp.obj CMakeFiles/VS.dir/tinystr.cpp.obj CMakeFiles/VS.dir/tinyxml.cpp.obj CMakeFiles/VS.dir/tinyxmlerror.cpp.obj CMakeFiles/VS.dir/tinyxmlparser.cpp.obj CMakeFiles/VS.dir/baan.cpp.obj CMakeFiles/VS.dir/verkeerslicht.cpp.obj CMakeFiles/VS.dir/voertuig.cpp.obj CMakeFiles/VS.dir/voertuiggenerator.cpp.obj
+build VS.exe: CXX_EXECUTABLE_LINKER__VS_Debug CMakeFiles/VS.dir/main.cpp.obj CMakeFiles/VS.dir/tinystr.cpp.obj CMakeFiles/VS.dir/tinyxml.cpp.obj CMakeFiles/VS.dir/tinyxmlerror.cpp.obj CMakeFiles/VS.dir/tinyxmlparser.cpp.obj CMakeFiles/VS.dir/baan.cpp.obj CMakeFiles/VS.dir/verkeerslicht.cpp.obj CMakeFiles/VS.dir/voertuig.cpp.obj CMakeFiles/VS.dir/voertuiggenerator.cpp.obj CMakeFiles/VS.dir/bushalte.cpp.obj CMakeFiles/VS.dir/kruispunt.cpp.obj
   FLAGS = -Wall -Werror -g
   LINK_FLAGS = -pthread
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
@@ -204,6 +218,20 @@ build CMakeFiles/VS_debug.dir/voertuiggenerator.cpp.obj: CXX_COMPILER__VS_debug_
   OBJECT_DIR = CMakeFiles\VS_debug.dir
   OBJECT_FILE_DIR = CMakeFiles\VS_debug.dir
 
+build CMakeFiles/VS_debug.dir/bushalte.cpp.obj: CXX_COMPILER__VS_debug_Debug C$:/Users/marcel/CLionProjects/PSE98/bushalte.cpp || cmake_object_order_depends_target_VS_debug
+  DEP_FILE = CMakeFiles\VS_debug.dir\bushalte.cpp.obj.d
+  FLAGS = -Wall -Werror -g -std=gnu++98
+  INCLUDES = -IC:/Users/marcel/CLionProjects/PSE98/gtest/include
+  OBJECT_DIR = CMakeFiles\VS_debug.dir
+  OBJECT_FILE_DIR = CMakeFiles\VS_debug.dir
+
+build CMakeFiles/VS_debug.dir/kruispunt.cpp.obj: CXX_COMPILER__VS_debug_Debug C$:/Users/marcel/CLionProjects/PSE98/kruispunt.cpp || cmake_object_order_depends_target_VS_debug
+  DEP_FILE = CMakeFiles\VS_debug.dir\kruispunt.cpp.obj.d
+  FLAGS = -Wall -Werror -g -std=gnu++98
+  INCLUDES = -IC:/Users/marcel/CLionProjects/PSE98/gtest/include
+  OBJECT_DIR = CMakeFiles\VS_debug.dir
+  OBJECT_FILE_DIR = CMakeFiles\VS_debug.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target VS_debug
@@ -212,7 +240,7 @@ build CMakeFiles/VS_debug.dir/voertuiggenerator.cpp.obj: CXX_COMPILER__VS_debug_
 #############################################
 # Link the executable VS_debug.exe
 
-build VS_debug.exe: CXX_EXECUTABLE_LINKER__VS_debug_Debug CMakeFiles/VS_debug.dir/TESTS.cpp.obj CMakeFiles/VS_debug.dir/tinystr.cpp.obj CMakeFiles/VS_debug.dir/tinyxml.cpp.obj CMakeFiles/VS_debug.dir/tinyxmlerror.cpp.obj CMakeFiles/VS_debug.dir/tinyxmlparser.cpp.obj CMakeFiles/VS_debug.dir/baan.cpp.obj CMakeFiles/VS_debug.dir/verkeerslicht.cpp.obj CMakeFiles/VS_debug.dir/voertuig.cpp.obj CMakeFiles/VS_debug.dir/voertuiggenerator.cpp.obj
+build VS_debug.exe: CXX_EXECUTABLE_LINKER__VS_debug_Debug CMakeFiles/VS_debug.dir/TESTS.cpp.obj CMakeFiles/VS_debug.dir/tinystr.cpp.obj CMakeFiles/VS_debug.dir/tinyxml.cpp.obj CMakeFiles/VS_debug.dir/tinyxmlerror.cpp.obj CMakeFiles/VS_debug.dir/tinyxmlparser.cpp.obj CMakeFiles/VS_debug.dir/baan.cpp.obj CMakeFiles/VS_debug.dir/verkeerslicht.cpp.obj CMakeFiles/VS_debug.dir/voertuig.cpp.obj CMakeFiles/VS_debug.dir/voertuiggenerator.cpp.obj CMakeFiles/VS_debug.dir/bushalte.cpp.obj CMakeFiles/VS_debug.dir/kruispunt.cpp.obj
   FLAGS = -Wall -Werror -g
   LINK_FLAGS = -pthread
   LINK_LIBRARIES = -lgtest  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32

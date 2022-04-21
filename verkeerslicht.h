@@ -40,11 +40,11 @@ public:
 
     void changeState();
 
-    void actieAuto();
+    void actieAuto(vector<Voertuig*> vectVoertuigen);
 
     const string &getFCurrentKleurState();
 
-    void simulatieVerkeerslicht();
+    void simulatieVerkeerslicht(Baan b1);
 
 };
 

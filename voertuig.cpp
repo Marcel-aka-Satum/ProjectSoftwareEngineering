@@ -101,11 +101,11 @@ void Voertuig::change_positie() {
 }
 
 
-void Voertuig::change_versnelling(){
+void Voertuig::change_versnelling(vector<Voertuig*> vectVoertuigen){
     REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
-//    REQUIRE((vectVoertuigen.size() >= 1), "Voertuigen zijn niet op de baan");
+//    REQUIRE((b1->vectVoertuigen.size() >= 1), "Voertuigen zijn niet op de baan");
 
-    unsigned int index = searchVoertuig(this);
+    unsigned int index = this->fIndexVoertuig;
     ENSURE((index >= 0), "De index van jouw voertuig is kleiner dan 0");
     if(this->getPositie() == 1){
         return;
@@ -118,6 +118,7 @@ void Voertuig::change_versnelling(){
         fSnelheidsverschil = vectVoertuigen[index]->getSnelheid() - vectVoertuigen[index + 1]->getSnelheid();
         fDelta = vectVoertuigen[index]->getFMinVolgafstand() + max(0.0, fSnelheid + (fSnelheid * fSnelheidsverschil) / (2 * (sqrt((fMax_versnelling * fMax_remfactor)))));
     }
+    cout << fMax_snelheid << endl;
     fVersnelling = fMax_versnelling * (1 - pow((fSnelheid / fMax_snelheid), 4) - (pow(fDelta, 2)));
     ENSURE((fVolgafstand >= 0), "Volgafstand tussen jouw 2 voertuigen is niet correct");
     ENSURE((fSnelheidsverschil >= 0), "De snelheidsverschil van jouw voertuig is kleiner dan 0");
@@ -148,23 +149,23 @@ int Voertuig::getFMinVolgafstand(){
     return fMin_volgafstand;
 }
 
-void Voertuig::checkInBaan(){
+void Voertuig::checkInBaan(Baan b1, vector<Voertuig*> vectVoertuigen){
     REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
     if(this->getPositie() > this->getBaan()->getLengte() || this->getPositie() < 0){
-        vectVoertuigen.erase(vectVoertuigen.begin() + this->getPositie() - 1);
+        b1.vectVoertuigen.erase(b1.vectVoertuigen.begin() + this->getPositie() - 1);
     }
 }
 
-void Voertuig::vertragen() {
-    REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
-    this->fMax_snelheid = fVertraagfactor * fAbs_max_snelheid;
+void Voertuig::vertragen(vector<Voertuig*> vectVoertuigen) {
+    REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd"); //TODO:GAAT NIET WERKEN MET VERKEERSLICHTEN FIX LATER
     ENSURE(fMax_snelheid >= 0, "De Max_snelheid van jouw voertuig is niet correct");
+    this->fMax_versnelling = fVertraagfactor * fAbs_max_snelheid;
     for(long long unsigned int i = this->getPositie()-1; i > 0; i--){
         vectVoertuigen[i]->fMax_versnelling = fVertraagfactor * fAbs_max_snelheid;
     }
 }
 
-void Voertuig::versnellen() {
+void Voertuig::versnellen(vector<Voertuig*> vectVoertuigen) {
     REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
     ENSURE(this->getBaan()->getVerkeerslichtOpBaan()->getFCurrentKleurState() == "groen", "Het is rood jouw auto mag niet versnellen");
     if(this->getBaan()->getVerkeerslichtOpBaan()->getFCurrentKleurState() == "groen"){
@@ -197,4 +198,12 @@ double Voertuig::getFMaxRemfactor() {
     REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
     REQUIRE(fMax_remfactor == 4.61,"Max Remfactor is niet correct");
     return fMax_remfactor;
+}
+
+const string &Voertuig::getType() const {
+    return type;
+}
+
+void Voertuig::setType(const string &type) {
+    Voertuig::type = type;
 }

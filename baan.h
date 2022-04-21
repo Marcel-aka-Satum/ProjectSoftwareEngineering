@@ -12,6 +12,8 @@ using namespace std;
 
 class Verkeerslicht;
 class Voertuig;
+class Bushalte;
+class Kruispunt;
 
 class Baan {
 protected:
@@ -21,26 +23,30 @@ protected:
 
     int fLengte;
 
-    vector<Voertuig*> vectVoertuigen;
-
     Verkeerslicht* verkeerslichtOpBaan;
 
     vector<Verkeerslicht*> fVerkeerslichten;
 
     int fTijd;
 
+    Bushalte* bushalte2;
+
+    vector<Kruispunt*> fKruispunten;
+
 public:
+    vector<Voertuig*> vectVoertuigen;
+
     bool properlyInitialized();
 
     Baan();
 
-    const vector<Verkeerslicht *> &getFVerkeerslichten() const;
+    vector<Verkeerslicht *> &getFVerkeerslichten();
 
     void setTijd(int tijd);
 
     int getTijd();
 
-    const vector<Voertuig *> &getVectVoertuigen();
+    vector<Voertuig *> &getVectVoertuigen();
 
     void setNaam(string a);
 
@@ -52,13 +58,22 @@ public:
 
     Verkeerslicht *getVerkeerslichtOpBaan();
 
-    void addVector(Voertuig* v1);
+    void addVector(Voertuig* v1, vector<Voertuig*> &vectVoertuigen2);
 
-    void addVerkeerslicht(Verkeerslicht* v1);
+    void addVerkeerslicht(Verkeerslicht* v1, vector<Verkeerslicht*> &fVerkeerslichten2);
 
-    int searchVoertuig(Voertuig* v);
+    int searchVoertuig(Voertuig* v, Baan b1, vector<Voertuig*> vectVoertuigen2);
 
-    void insertionSort();
+    void insertionSort(vector<Voertuig*> &vectVoertuigen2);
+
+    Bushalte *getBushalte2() const;
+
+    void setBushalte2(Bushalte *bushalte);
+
+    void addToKruispunten(Kruispunt* k1);
+
+    vector<Kruispunt *> &getFKruispunten();
+
 };
 
 

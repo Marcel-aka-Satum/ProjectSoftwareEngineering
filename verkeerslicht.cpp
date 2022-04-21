@@ -66,14 +66,14 @@ void Verkeerslicht::changeState(){
     }
 }
 
-void Verkeerslicht::actieAuto() {
+void Verkeerslicht::actieAuto(vector<Voertuig*> vectVoertuigen) {
     REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer whichState werd opgeroepen");
     ENSURE(fCurrentKleurState != "", "het moet groen of rood zijn en niet leeg");
     ENSURE(vectVoertuigen.size() > 0, "vectVoertuigen mag niet leeg zijn");
     if(fCurrentKleurState == "groen"){
         for(long long unsigned int i = 0; i < vectVoertuigen.size(); i++){
             if(vectVoertuigen[i]->getPositie() < this->fPositie){
-                vectVoertuigen[i]->versnellen();
+                vectVoertuigen[i]->versnellen(vectVoertuigen);
             }
         }
     } else if(fCurrentKleurState == "rood"){
@@ -82,9 +82,9 @@ void Verkeerslicht::actieAuto() {
                 ENSURE(fPositie >= 0 && fPositie <= this->getBaan()->getLengte(),"positie moet bestaan");
                 int afstandPaalVoertuig = this->fPositie - vectVoertuigen[i]->getPositie();
                 if(afstandPaalVoertuig < 50 && afstandPaalVoertuig > 15){
-                    vectVoertuigen[i]->vertragen();
+                    vectVoertuigen[i]->vertragen(vectVoertuigen);
                 } else if(afstandPaalVoertuig < 15 && afstandPaalVoertuig > 0){
-                    vectVoertuigen[i]->stoppen();
+                   vectVoertuigen[i]->stoppen();
                 }
             }
         }
@@ -101,7 +101,7 @@ bool Verkeerslicht::properlyInitialized() {
     return _initCheck == this;
 }
 
-void Verkeerslicht::simulatieVerkeerslicht() {
+void Verkeerslicht::simulatieVerkeerslicht(Baan b1) {
     changeState();
-    actieAuto();
+    actieAuto(vectVoertuigen);
 }

@@ -13,7 +13,7 @@ link_directories(gtest/lib)
 
 # Set source files for RELEASE target
 set(RELEASE_SOURCE_FILES tinystr.cpp tinystr.h tinyxml.cpp tinyxmlerror.cpp tinyxmlparser.cpp baan.h baan.cpp verkeerslicht.h
-        verkeerslicht.cpp voertuig.h voertuig.cpp voertuiggenerator.h voertuiggenerator.cpp xmlexporter.h DesignByContract.h testVoertuig.h)
+        verkeerslicht.cpp voertuig.h voertuig.cpp voertuiggenerator.h voertuiggenerator.cpp xmlexporter.h DesignByContract.h testVoertuig.h bushalte.cpp bushalte.h kruispunt.cpp kruispunt.h)
 
 # Set source files for DEBUG target
 set(DEBUG_SOURCE_FILES TESTS.cpp ${RELEASE_SOURCE_FILES} testBaan.h testGenerator.h)

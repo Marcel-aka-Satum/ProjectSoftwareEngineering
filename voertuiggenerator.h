@@ -17,6 +17,7 @@ private:
     Voertuiggenerator* _initCheck;
     int fFrequentie;
     Baan* fBaan;
+    string type;
 
 
 public:
@@ -32,6 +33,9 @@ public:
 
     void setBaan(Baan *baan);
 
+    const string &getType() const;
+
+    void setType(const string &type);
 
 };
 
