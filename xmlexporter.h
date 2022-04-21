@@ -49,8 +49,9 @@ void startParsing2(vector<Baan*>& banen, Verkeerslicht& l1, Voertuiggenerator& g
 
         Voertuig* v1 = new Voertuig;
         Baan* b1 = new Baan;
-        Kruispunt* k1 = new Kruispunt;
+
         for(TiXmlElement* k = e->FirstChildElement(); k != NULL; k = k->NextSiblingElement()){
+            Kruispunt* k1 = new Kruispunt;
             //stap 2.1
             string elemName2 = k->Value();
             if(elemName == "BAAN" && elemName2 == "naam"){
@@ -98,11 +99,12 @@ void startParsing2(vector<Baan*>& banen, Verkeerslicht& l1, Voertuiggenerator& g
                 int i;
                 istringstream(k->GetText()) >> i;
                 bushalte1.setWachttijd(i);
-            } else if(elemName == "KRUISPUNT"){
-                for(long long unsigned int i = 0; i < banen.size()-1; i++){
-                    if(banen[i]->getNaam() == k->FirstAttribute()->Name()){
+            } else if(elemName == "KRUISPUNT" && elemName2 == "baan"){
+                for(long long unsigned int i = 0; i <= banen.size()-1; i++){
+                    if(banen[i]->getNaam() == k->GetText()){
                        k1->setPositie(k->FirstAttribute()->IntValue());
                        banen[i]->addToKruispunten(k1);
+                       break;
                     }
                 }
             }else{ // 2.1 UITZONDERING!!!
