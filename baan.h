@@ -74,6 +74,8 @@ public:
 
     vector<Kruispunt *> &getFKruispunten();
 
+    void simpel_uitvoer();
+
 };
 
 

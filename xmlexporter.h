@@ -72,6 +72,12 @@ void startParsing2(vector<Baan*>& banen, Verkeerslicht& l1, Voertuiggenerator& g
                 istringstream(k->GetText()) >> i;
                 l1.setCyclus(i);
             } else if (elemName == "VOERTUIG" && elemName2 == "baan"){
+                string a = k->GetText();
+                for(long long unsigned int i = 0; i <= banen.size() -1; i++){
+                    if(banen[i]->getNaam() == a){
+                        b1 = banen[i];
+                    }
+                }
                 v1->setBaan(b1);
             } else if (elemName == "VOERTUIG" && elemName2 == "positie"){
                 int i;
@@ -116,7 +122,11 @@ void startParsing2(vector<Baan*>& banen, Verkeerslicht& l1, Voertuiggenerator& g
         if(elemName == "VOERTUIG"){
             gIndex++;
             v1->setFindexVoertuig(gIndex);
-            b1->addVector(v1, b1->getVectVoertuigen());
+            for(long long unsigned int i = 0; i <= banen.size() - 1; i++){
+                if(banen[i]->getNaam() == v1->getBaan()->getNaam()){
+                    banen[i]->addVector(v1, banen[i]->getVectVoertuigen());
+                }
+            }
         } else if(elemName == "VERKEERSLICHT"){
             b1->addVerkeerslicht(&l1, b1->getFVerkeerslichten());
         } else if(elemName == "BAAN"){

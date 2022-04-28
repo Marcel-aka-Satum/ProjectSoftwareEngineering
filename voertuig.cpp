@@ -204,6 +204,6 @@ const string &Voertuig::getType() const {
     return type;
 }
 
-void Voertuig::setType(const string &type) {
-    Voertuig::type = type;
+void Voertuig::setType(const string &type2) {
+    Voertuig::type = type2;
 }

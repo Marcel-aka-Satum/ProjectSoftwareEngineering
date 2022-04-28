@@ -122,3 +122,17 @@ void Baan::addToKruispunten(Kruispunt *k1) {
 vector<Kruispunt *> &Baan::getFKruispunten(){
     return fKruispunten;
 }
+
+void Baan::simpel_uitvoer() {
+    cout << "Tijd: " << fTijd << endl;
+    while (!vectVoertuigen.empty()) {
+        for (long long unsigned int i = 0; i <= vectVoertuigen.size() - 1; i++) {
+            cout << "Voertuig " << vectVoertuigen[i]->getFindexVoertuig() << endl;
+            cout << "-> baan: " << vectVoertuigen[i]->getBaan()->getNaam() << endl;
+            cout << "-> positie: " << vectVoertuigen[i]->getPositie() << endl;
+            cout << "-> snelheid: " << vectVoertuigen[i]->getSnelheid() << endl;
+            vectVoertuigen[i]->setFSimulatietijd(vectVoertuigen[i]->getFSimulatietijd() + 0.0166);
+            vectVoertuigen[i]->change_positie();
+        }
+    }
+}
