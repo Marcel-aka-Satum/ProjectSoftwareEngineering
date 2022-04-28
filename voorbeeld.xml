@@ -25,22 +25,22 @@
 
     <VOERTUIG>
         <baan>Middelheimlaan</baan>
-        <positie>20</positie>
+        <positie>10</positie>
         <type>bus</type>
     </VOERTUIG>
     <VOERTUIG>
         <baan>Middelheimlaan</baan>
-        <positie>40</positie>
+        <positie>15</positie>
         <type>brandweerwagen</type>
     </VOERTUIG>
     <VOERTUIG>
         <baan>Middelheimlaan</baan>
-        <positie>60</positie>
+        <positie>20</positie>
         <type>ziekenwagen</type>
     </VOERTUIG>
     <VOERTUIG>
         <baan>Middelheimlaan</baan>
-        <positie>80</positie>
+        <positie>25</positie>
         <type>politiecombi</type>
     </VOERTUIG>
 

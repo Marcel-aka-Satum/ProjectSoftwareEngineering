@@ -33,6 +33,8 @@ protected:
 
     vector<Kruispunt*> fKruispunten;
 
+    double fSimulatietijd;
+
 public:
     vector<Voertuig*> vectVoertuigen;
 
@@ -75,6 +77,10 @@ public:
     vector<Kruispunt *> &getFKruispunten();
 
     void simpel_uitvoer();
+
+    double getFSimulatietijd() const;
+
+    void setFSimulatietijd(double fSimulatietijd);
 
 };
 

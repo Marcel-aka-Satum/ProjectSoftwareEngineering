@@ -124,15 +124,33 @@ vector<Kruispunt *> &Baan::getFKruispunten(){
 }
 
 void Baan::simpel_uitvoer() {
-    cout << "Tijd: " << fTijd << endl;
+    insertionSort(vectVoertuigen);;
     while (!vectVoertuigen.empty()) {
+        cout << "Tijd: " << fTijd << endl;
         for (long long unsigned int i = 0; i <= vectVoertuigen.size() - 1; i++) {
-            cout << "Voertuig " << vectVoertuigen[i]->getFindexVoertuig() << endl;
+            cout << "Voertuig " << vectVoertuigen[i]->getFindexVoertuig() << " type: " << vectVoertuigen[i]->getType() << endl;
             cout << "-> baan: " << vectVoertuigen[i]->getBaan()->getNaam() << endl;
             cout << "-> positie: " << vectVoertuigen[i]->getPositie() << endl;
             cout << "-> snelheid: " << vectVoertuigen[i]->getSnelheid() << endl;
-            vectVoertuigen[i]->setFSimulatietijd(vectVoertuigen[i]->getFSimulatietijd() + 0.0166);
-            vectVoertuigen[i]->change_positie();
+            vectVoertuigen[i]->change_positie(fSimulatietijd);
+            if(vectVoertuigen.size() == 0){
+                break;
+            }
+            if(fSimulatietijd >= 0.966){
+                fTijd += 1;
+                fSimulatietijd = 0;
+            } else{
+                fSimulatietijd += 0.0166;
+            }
         }
     }
+
+}
+
+double Baan::getFSimulatietijd() const {
+    return fSimulatietijd;
+}
+
+void Baan::setFSimulatietijd(double fSimulatietijd2) {
+    Baan::fSimulatietijd = fSimulatietijd2;
 }

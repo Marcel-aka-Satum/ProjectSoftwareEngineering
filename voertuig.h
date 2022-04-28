@@ -10,9 +10,8 @@
 #include "baan.h"
 using namespace std;
 
-
 class Voertuig{
-private:
+protected:
     Voertuig* _initCheck;
     Baan* fBaan;
     double fPositie;
@@ -24,7 +23,6 @@ private:
     double fMax_versnelling;
     double fMax_remfactor;
     int fMin_volgafstand;
-    double fSimulatietijd;
     int fVertraagafstand;
     int fStopafstand;
     double fVertraagfactor;
@@ -33,7 +31,6 @@ private:
     double fSnelheidsverschil;
     double fDelta;
     string type;
-
 
 public:
     Voertuig();
@@ -56,7 +53,7 @@ public:
 
     void print();
 
-    void change_positie();
+    void change_positie(double fSimulatietijd);
 
     void change_versnelling(vector<Voertuig*> vectVoertuigen);
 
@@ -68,7 +65,9 @@ public:
 
     int getFMinVolgafstand();
 
-    void checkInBaan(Baan b1, vector<Voertuig*> vectVoertuigen);
+    bool checkInBaan(Baan& b1, vector<Voertuig*> vectVoertuigen);
+
+    void verwijderUitBaan(Baan& b1, vector<Voertuig*> vectVoertuigen);
 
     void vertragen(vector<Voertuig*> vectVoertuigen);
 
@@ -76,14 +75,13 @@ public:
 
     void stoppen();
 
-    void setFSimulatietijd(double fSimulatietijd);
-
-    double getFSimulatietijd();
-
     const string &getType() const;
 
     void setType(const string &type);
+
+    void changeTypeVoertuig();
 };
+
 
 
 #endif //OEFENINGXML_VOERTUIGEN_H

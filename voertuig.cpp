@@ -18,12 +18,11 @@ Voertuig::Voertuig() {
     fMax_versnelling = 1.44;
     fMax_remfactor = 4.61;
     fMin_volgafstand = 4;
-    fSimulatietijd = 0.0166;
     fVertraagafstand = 50;
     fStopafstand = 15;
     fVertraagfactor = 0.4;
 
-    fSnelheid = 0;
+    fSnelheid = fAbs_max_snelheid;
     fVersnelling = 0;     // hoe weten we dit
 
     fBaan = new Baan;
@@ -77,12 +76,11 @@ double Voertuig::getAbs_max_snelheid(){
 }
 
 //Bereken nieuwe snelheid en positie van voertuig
-void Voertuig::change_positie() {
+void Voertuig::change_positie(double fSimulatietijd) {
     REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
     REQUIRE((fSnelheid >= 0), "De snelheid van jouw Voertuig is < 0");
     REQUIRE((fVersnelling >= 0 && fVersnelling <= 1.44), "De versnelling van jouw Voertuig is < 0 of > 1.44");
 
-//    checkInBaan();
     if(fSnelheid + (fVersnelling * fSimulatietijd) < 0 ){
         fPositie = fPositie - ((fVersnelling * fVersnelling) / 2 * fVersnelling);
         fSnelheid = 0;
@@ -95,6 +93,10 @@ void Voertuig::change_positie() {
     if(fSnelheid >= fAbs_max_snelheid){
         fSnelheid = fAbs_max_snelheid;
     }
+    if(checkInBaan(*this->getBaan(), this->getBaan()->getVectVoertuigen())){
+        verwijderUitBaan(*this->getBaan(), this->getBaan()->getVectVoertuigen());
+        return;
+    }
     ENSURE((fPositie >= 0 && fPositie <= this->getBaan()->getLengte()),"Positite van jouw voertuig is buiten de baan");
     ENSURE((fSnelheid >= 0 && fSnelheid <= fAbs_max_snelheid),"Snelheid van jouw voertuig is ongeldig");
     ENSURE((fVersnelling >= 0 && fVersnelling <= fMax_versnelling), "Versnelling van jouw voertuig is ongeldig");
@@ -103,7 +105,7 @@ void Voertuig::change_positie() {
 
 void Voertuig::change_versnelling(vector<Voertuig*> vectVoertuigen){
     REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
-//    REQUIRE((b1->vectVoertuigen.size() >= 1), "Voertuigen zijn niet op de baan");
+    REQUIRE((vectVoertuigen.size() >= 1), "Voertuigen zijn niet op de baan");
 
     unsigned int index = this->fIndexVoertuig;
     ENSURE((index >= 0), "De index van jouw voertuig is kleiner dan 0");
@@ -118,7 +120,7 @@ void Voertuig::change_versnelling(vector<Voertuig*> vectVoertuigen){
         fSnelheidsverschil = vectVoertuigen[index]->getSnelheid() - vectVoertuigen[index + 1]->getSnelheid();
         fDelta = vectVoertuigen[index]->getFMinVolgafstand() + max(0.0, fSnelheid + (fSnelheid * fSnelheidsverschil) / (2 * (sqrt((fMax_versnelling * fMax_remfactor)))));
     }
-    cout << fMax_snelheid << endl;
+
     fVersnelling = fMax_versnelling * (1 - pow((fSnelheid / fMax_snelheid), 4) - (pow(fDelta, 2)));
     ENSURE((fVolgafstand >= 0), "Volgafstand tussen jouw 2 voertuigen is niet correct");
     ENSURE((fSnelheidsverschil >= 0), "De snelheidsverschil van jouw voertuig is kleiner dan 0");
@@ -149,11 +151,16 @@ int Voertuig::getFMinVolgafstand(){
     return fMin_volgafstand;
 }
 
-void Voertuig::checkInBaan(Baan b1, vector<Voertuig*> vectVoertuigen){
+bool Voertuig::checkInBaan(Baan& b1, vector<Voertuig*> vectVoertuigen){
     REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
     if(this->getPositie() > this->getBaan()->getLengte() || this->getPositie() < 0){
-        b1.vectVoertuigen.erase(b1.vectVoertuigen.begin() + this->getPositie() - 1);
+        return true;
     }
+    return false;
+}
+
+void Voertuig::verwijderUitBaan(Baan& b1, vector<Voertuig*> vectVoertuigen){
+    b1.vectVoertuigen.pop_back();
 }
 
 void Voertuig::vertragen(vector<Voertuig*> vectVoertuigen) {
@@ -182,18 +189,6 @@ void Voertuig::stoppen() {
     ENSURE(this->fVersnelling >= 0, "Versnelling van jouw auto is niet correct");
 }
 
-void Voertuig::setFSimulatietijd(double fSimulatietijd2) {
-    REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
-    Voertuig::fSimulatietijd = fSimulatietijd2;
-    ENSURE(fSimulatietijd >= 0,"Simulatie tijd is niet correct");
-}
-
-double Voertuig::getFSimulatietijd(){
-    REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
-    ENSURE(fSimulatietijd >= 0,"Simulatie tijd is niet correct");
-    return fSimulatietijd;
-}
-
 double Voertuig::getFMaxRemfactor() {
     REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
     REQUIRE(fMax_remfactor == 4.61,"Max Remfactor is niet correct");
@@ -206,4 +201,64 @@ const string &Voertuig::getType() const {
 
 void Voertuig::setType(const string &type2) {
     Voertuig::type = type2;
+}
+
+void Voertuig::changeTypeVoertuig() {
+    if(type == "bus"){
+        _initCheck = this;
+        fLengte = 12;
+        fAbs_max_snelheid = 11.4;
+        fMax_versnelling = 1.22;
+        fMax_remfactor = 4.29;
+        fMin_volgafstand = 12;
+        fVertraagafstand = 50;
+        fStopafstand = 15;
+        fVertraagfactor = 0.4;
+
+        fSnelheid = fAbs_max_snelheid;
+        fVersnelling = 0;     // hoe weten we dit
+
+    } else if(type == "brandweerwagen"){
+        _initCheck = this;
+        fLengte = 10;
+        fAbs_max_snelheid = 14.6;
+        fMax_versnelling = 1.33;
+        fMax_remfactor = 4.56;
+        fMin_volgafstand = 10;
+        fVertraagafstand = 50;
+        fStopafstand = 15;
+        fVertraagfactor = 0.4;
+
+        fSnelheid = fAbs_max_snelheid;
+        fVersnelling = 0;     // hoe weten we dit
+
+    } else if(type == "ziekenwagen"){
+        _initCheck = this;
+        fLengte = 8;
+        fAbs_max_snelheid = 15.5;
+        fMax_versnelling = 1.44;
+        fMax_remfactor = 4.47;
+        fMin_volgafstand = 8;
+        fVertraagafstand = 50;
+        fStopafstand = 15;
+        fVertraagfactor = 0.4;
+
+        fSnelheid = fAbs_max_snelheid;
+        fVersnelling = 0;     // hoe weten we dit
+
+    } else if(type == "politiecombi"){
+        _initCheck = this;
+        fLengte = 6;
+        fAbs_max_snelheid = 17.2;
+        fMax_versnelling = 1.55;
+        fMax_remfactor = 4.92;
+        fMin_volgafstand = 6;
+        fVertraagafstand = 50;
+        fStopafstand = 15;
+        fVertraagfactor = 0.4;
+
+        fSnelheid = fAbs_max_snelheid;
+        fVersnelling = 0;     // hoe weten we dit
+
+    }
 }

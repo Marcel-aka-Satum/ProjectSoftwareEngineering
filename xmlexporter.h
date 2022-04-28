@@ -120,6 +120,7 @@ void startParsing2(vector<Baan*>& banen, Verkeerslicht& l1, Voertuiggenerator& g
 
 
         if(elemName == "VOERTUIG"){
+            v1->changeTypeVoertuig();
             gIndex++;
             v1->setFindexVoertuig(gIndex);
             for(long long unsigned int i = 0; i <= banen.size() - 1; i++){
