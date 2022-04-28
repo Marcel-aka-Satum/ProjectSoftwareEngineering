@@ -124,7 +124,7 @@ vector<Kruispunt *> &Baan::getFKruispunten(){
 }
 
 void Baan::simpel_uitvoer() {
-    insertionSort(vectVoertuigen);;
+    insertionSort(vectVoertuigen);
     while (!vectVoertuigen.empty()) {
         cout << "Tijd: " << fTijd << endl;
         for (long long unsigned int i = 0; i <= vectVoertuigen.size() - 1; i++) {
@@ -142,6 +142,10 @@ void Baan::simpel_uitvoer() {
             } else{
                 fSimulatietijd += 0.0166;
             }
+        }
+        for(long long unsigned int i = 0; i <= fVerkeerslichten.size() - 1; i++){
+            cout << "kleur: " << fVerkeerslichten[i]->getFCurrentKleurState() << endl;
+            fVerkeerslichten[i]->simulatieVerkeerslicht(fTijd, vectVoertuigen);
         }
     }
 

@@ -13,7 +13,7 @@
 using namespace std;
 
 
-class Verkeerslicht : protected Baan {
+class Verkeerslicht{
 private:
     Verkeerslicht* _initCheck;
     Baan* fBaan;
@@ -34,17 +34,17 @@ public:
 
     int getCyclus();
 
-    void setPositie(int positie);
+    void setPositie(int positie2);
 
     void setCyclus(int cyclus);
 
-    void changeState();
+    void changeState(double fTijd);
 
-    void actieAuto(vector<Voertuig*> vectVoertuigen);
+    void actieAuto(vector<Voertuig*> &vectVoertuigen);
 
     const string &getFCurrentKleurState();
 
-    void simulatieVerkeerslicht(Baan b1);
+    void simulatieVerkeerslicht(double fTijd, vector<Voertuig*> vectVoertuigen);
 
 };
 

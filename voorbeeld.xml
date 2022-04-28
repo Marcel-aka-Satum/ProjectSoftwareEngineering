@@ -1,15 +1,6 @@
 <ROOT>
     <BAAN>
         <naam>Middelheimlaan</naam>
-        <lengte>500</lengte>
-    </BAAN>
-    <BAAN>
-        <naam>Floralienlaan</naam>
-        <lengte>750</lengte>
-    </BAAN>
-
-    <BAAN>
-        <naam>Beukenlaan</naam>
         <lengte>1000</lengte>
     </BAAN>
 
@@ -28,20 +19,13 @@
         <positie>10</positie>
         <type>bus</type>
     </VOERTUIG>
-    <VOERTUIG>
+
+    <VERKEERSLICHT>
         <baan>Middelheimlaan</baan>
-        <positie>15</positie>
-        <type>brandweerwagen</type>
-    </VOERTUIG>
-    <VOERTUIG>
-        <baan>Middelheimlaan</baan>
-        <positie>20</positie>
-        <type>ziekenwagen</type>
-    </VOERTUIG>
-    <VOERTUIG>
-        <baan>Middelheimlaan</baan>
-        <positie>25</positie>
-        <type>politiecombi</type>
-    </VOERTUIG>
+        <positie>70</positie>
+        <cyclus>20</cyclus>
+    </VERKEERSLICHT>
+
+
 
 </ROOT>

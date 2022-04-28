@@ -23,10 +23,10 @@ void Verkeerslicht::setBaan(Baan *baan) {
     ENSURE(baan != NULL,"het moet een baan zijn");
 }
 
-void Verkeerslicht::setPositie(int positie) {
+void Verkeerslicht::setPositie(int positie2) {
     REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer setPositie werd opgeroepen");
-    Verkeerslicht::fPositie = positie;
-    ENSURE(positie >= 0 && positie <= this->getBaan()->getLengte(),"positie moet bestaan");
+    Verkeerslicht::fPositie = positie2;
+    ENSURE(fPositie >= 0 && fPositie <= fBaan->getLengte(),"positie moet bestaan");
 }
 
 void Verkeerslicht::setCyclus(int cyclus) {
@@ -52,13 +52,12 @@ int Verkeerslicht::getCyclus(){
     return fCyclus;
 }
 
-void Verkeerslicht::changeState(){
+void Verkeerslicht::changeState(double fTijd){
     REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer changeState werd opgeroepen");
     ENSURE(fTijd >= 0,"tijd kan niet negatief");
     if(fTijd > fCyclus){
         if(fCurrentKleurState == "groen"){
             fCurrentKleurState = "rood";
-            fTijd = 0;
         } else{
             fCurrentKleurState = "groen";
         }
@@ -66,7 +65,7 @@ void Verkeerslicht::changeState(){
     }
 }
 
-void Verkeerslicht::actieAuto(vector<Voertuig*> vectVoertuigen) {
+void Verkeerslicht::actieAuto(vector<Voertuig*>& vectVoertuigen) {
     REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer whichState werd opgeroepen");
     ENSURE(fCurrentKleurState != "", "het moet groen of rood zijn en niet leeg");
     ENSURE(vectVoertuigen.size() > 0, "vectVoertuigen mag niet leeg zijn");
@@ -101,7 +100,7 @@ bool Verkeerslicht::properlyInitialized() {
     return _initCheck == this;
 }
 
-void Verkeerslicht::simulatieVerkeerslicht(Baan b1) {
-    changeState();
+void Verkeerslicht::simulatieVerkeerslicht(double fTijd, vector<Voertuig*> vectVoertuigen) {
+    changeState(fTijd);
     actieAuto(vectVoertuigen);
 }

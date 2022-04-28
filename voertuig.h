@@ -69,9 +69,9 @@ public:
 
     void verwijderUitBaan(Baan& b1, vector<Voertuig*> vectVoertuigen);
 
-    void vertragen(vector<Voertuig*> vectVoertuigen);
+    void vertragen(vector<Voertuig*> &vectVoertuigen);
 
-    void versnellen(vector<Voertuig*> vectVoertuigen);
+    void versnellen(vector<Voertuig*> &vectVoertuigen);
 
     void stoppen();
 

@@ -62,6 +62,12 @@ void startParsing2(vector<Baan*>& banen, Verkeerslicht& l1, Voertuiggenerator& g
                 istringstream(k->GetText()) >> i;
                 b1->setLengte(i);
             } else if (elemName == "VERKEERSLICHT" && elemName2 == "baan"){
+                string a = k->GetText();
+                for(long long unsigned int i = 0; i <= banen.size() -1; i++){
+                    if(banen[i]->getNaam() == a){
+                        b1 = banen[i];
+                    }
+                }
                 l1.setBaan(b1);
             } else if (elemName == "VERKEERSLICHT" && elemName2 == "positie"){
                 int i;

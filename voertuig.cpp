@@ -160,10 +160,10 @@ bool Voertuig::checkInBaan(Baan& b1, vector<Voertuig*> vectVoertuigen){
 }
 
 void Voertuig::verwijderUitBaan(Baan& b1, vector<Voertuig*> vectVoertuigen){
-    b1.vectVoertuigen.pop_back();
+    b1.getVectVoertuigen().pop_back();
 }
 
-void Voertuig::vertragen(vector<Voertuig*> vectVoertuigen) {
+void Voertuig::vertragen(vector<Voertuig*> &vectVoertuigen) {
     REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd"); //TODO:GAAT NIET WERKEN MET VERKEERSLICHTEN FIX LATER
     ENSURE(fMax_snelheid >= 0, "De Max_snelheid van jouw voertuig is niet correct");
     this->fMax_versnelling = fVertraagfactor * fAbs_max_snelheid;
@@ -172,7 +172,7 @@ void Voertuig::vertragen(vector<Voertuig*> vectVoertuigen) {
     }
 }
 
-void Voertuig::versnellen(vector<Voertuig*> vectVoertuigen) {
+void Voertuig::versnellen(vector<Voertuig*> &vectVoertuigen) {
     REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
     ENSURE(this->getBaan()->getVerkeerslichtOpBaan()->getFCurrentKleurState() == "groen", "Het is rood jouw auto mag niet versnellen");
     if(this->getBaan()->getVerkeerslichtOpBaan()->getFCurrentKleurState() == "groen"){

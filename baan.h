@@ -35,8 +35,9 @@ protected:
 
     double fSimulatietijd;
 
-public:
     vector<Voertuig*> vectVoertuigen;
+
+public:
 
     bool properlyInitialized();
 
@@ -81,6 +82,8 @@ public:
     double getFSimulatietijd() const;
 
     void setFSimulatietijd(double fSimulatietijd);
+
+    void grafischeImpressie();
 
 };
 
