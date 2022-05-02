@@ -15,7 +15,7 @@
 #include <sstream>
 
 
-void startParsing2(vector<Baan*>& banen, Verkeerslicht& l1, Voertuiggenerator& g1, Bushalte& bushalte1){
+void startParsing2(vector<Baan*>& banen, Verkeerslicht& l1, Voertuiggenerator& g1){
 
     // stap 1
     //steek input in doc object
@@ -49,6 +49,7 @@ void startParsing2(vector<Baan*>& banen, Verkeerslicht& l1, Voertuiggenerator& g
 
         Voertuig* v1 = new Voertuig;
         Baan* b1 = new Baan;
+        Bushalte* bushalte1 = new Bushalte;
 
         for(TiXmlElement* k = e->FirstChildElement(); k != NULL; k = k->NextSiblingElement()){
             Kruispunt* k1 = new Kruispunt;
@@ -102,15 +103,20 @@ void startParsing2(vector<Baan*>& banen, Verkeerslicht& l1, Voertuiggenerator& g
                 string a = k->GetText();
                 g1.setType(a);
             } else if(elemName == "BUSHALTE" && elemName2 == "baan"){
-                bushalte1.setBaan(b1);
+                string a = k->GetText();
+                for(long long unsigned int i = 0; i <= banen.size() -1; i++){
+                    if(banen[i]->getNaam() == a){
+                        bushalte1->setBaan(banen[i]);
+                    }
+                }
             } else if(elemName == "BUSHALTE" && elemName2 == "positie"){
                 int i;
                 istringstream(k->GetText()) >> i;
-                bushalte1.setPositie(i);
+                bushalte1->setPositie(i);
             } else if(elemName == "BUSHALTE" && elemName2 == "wachttijd"){
                 int i;
                 istringstream(k->GetText()) >> i;
-                bushalte1.setWachttijd(i);
+                bushalte1->setWachttijd(i);
             } else if(elemName == "KRUISPUNT" && elemName2 == "baan"){
                 for(long long unsigned int i = 0; i <= banen.size()-1; i++){
                     if(banen[i]->getNaam() == k->GetText()){
@@ -138,6 +144,12 @@ void startParsing2(vector<Baan*>& banen, Verkeerslicht& l1, Voertuiggenerator& g
             b1->addVerkeerslicht(&l1, b1->getFVerkeerslichten());
         } else if(elemName == "BAAN"){
             banen.push_back(b1);
+        } else if(elemName == "BUSHALTE"){
+            for(long long unsigned int i = 0; i <= banen.size() -1 ;i++){
+                if(banen[i]->getNaam() == bushalte1->getBaan()->getNaam()){
+                    banen[i]->addBushalteToVector(bushalte1);
+                }
+            }
         }
     }
     //sluit bestand

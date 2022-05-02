@@ -44,7 +44,6 @@ public:
 
     const string &getFCurrentKleurState();
 
-    void simulatieVerkeerslicht(double fTijd, vector<Voertuig*> vectVoertuigen);
 
 };
 

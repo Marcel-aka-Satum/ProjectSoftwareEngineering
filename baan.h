@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "fstream"
 using namespace std;
 
 class Verkeerslicht;
@@ -16,7 +17,7 @@ class Bushalte;
 class Kruispunt;
 
 class Baan {
-protected:
+private:
     Baan* _initCheck;
 
     string fNaam;
@@ -29,13 +30,13 @@ protected:
 
     int fTijd;
 
-    Bushalte* bushalte2;
-
     vector<Kruispunt*> fKruispunten;
 
     double fSimulatietijd;
 
     vector<Voertuig*> vectVoertuigen;
+
+    vector <Bushalte*> fBushaltes;
 
 public:
 
@@ -69,10 +70,6 @@ public:
 
     void insertionSort(vector<Voertuig*> &vectVoertuigen2);
 
-    Bushalte *getBushalte2() const;
-
-    void setBushalte2(Bushalte *bushalte);
-
     void addToKruispunten(Kruispunt* k1);
 
     vector<Kruispunt *> &getFKruispunten();
@@ -84,6 +81,10 @@ public:
     void setFSimulatietijd(double fSimulatietijd);
 
     void grafischeImpressie();
+
+    void simulatieVerkeerslicht();
+
+    void addBushalteToVector(Bushalte* b1);
 
 };
 

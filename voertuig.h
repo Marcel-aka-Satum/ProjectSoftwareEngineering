@@ -31,6 +31,7 @@ protected:
     double fSnelheidsverschil;
     double fDelta;
     string type;
+    string afkortingType;
 
 public:
     Voertuig();
@@ -69,9 +70,9 @@ public:
 
     void verwijderUitBaan(Baan& b1, vector<Voertuig*> vectVoertuigen);
 
-    void vertragen(vector<Voertuig*> &vectVoertuigen);
+    void vertragen();
 
-    void versnellen(vector<Voertuig*> &vectVoertuigen);
+    void versnellen();
 
     void stoppen();
 
@@ -80,6 +81,8 @@ public:
     void setType(const string &type);
 
     void changeTypeVoertuig();
+
+    const string &getAfkortingType() const;
 };
 
 

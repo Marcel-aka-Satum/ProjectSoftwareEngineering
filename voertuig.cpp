@@ -21,7 +21,7 @@ Voertuig::Voertuig() {
     fVertraagafstand = 50;
     fStopafstand = 15;
     fVertraagfactor = 0.4;
-
+    afkortingType = "A";
     fSnelheid = fAbs_max_snelheid;
     fVersnelling = 0;     // hoe weten we dit
 
@@ -163,24 +163,16 @@ void Voertuig::verwijderUitBaan(Baan& b1, vector<Voertuig*> vectVoertuigen){
     b1.getVectVoertuigen().pop_back();
 }
 
-void Voertuig::vertragen(vector<Voertuig*> &vectVoertuigen) {
+void Voertuig::vertragen() {
     REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd"); //TODO:GAAT NIET WERKEN MET VERKEERSLICHTEN FIX LATER
     ENSURE(fMax_snelheid >= 0, "De Max_snelheid van jouw voertuig is niet correct");
     this->fMax_versnelling = fVertraagfactor * fAbs_max_snelheid;
-    for(long long unsigned int i = this->getPositie()-1; i > 0; i--){
-        vectVoertuigen[i]->fMax_versnelling = fVertraagfactor * fAbs_max_snelheid;
-    }
 }
 
-void Voertuig::versnellen(vector<Voertuig*> &vectVoertuigen) {
+void Voertuig::versnellen() {
     REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
     ENSURE(this->getBaan()->getVerkeerslichtOpBaan()->getFCurrentKleurState() == "groen", "Het is rood jouw auto mag niet versnellen");
-    if(this->getBaan()->getVerkeerslichtOpBaan()->getFCurrentKleurState() == "groen"){
-        this->fMax_snelheid = this->fAbs_max_snelheid;
-        for(long long unsigned int i = this->getPositie()-1; i > 0; i--){
-            vectVoertuigen[i]->fMax_snelheid = vectVoertuigen[i]->fAbs_max_snelheid;
-        }
-    }
+    this->fMax_snelheid = this->fAbs_max_snelheid;
 }
 
 void Voertuig::stoppen() {
@@ -214,7 +206,7 @@ void Voertuig::changeTypeVoertuig() {
         fVertraagafstand = 50;
         fStopafstand = 15;
         fVertraagfactor = 0.4;
-
+        afkortingType = "B";
         fSnelheid = fAbs_max_snelheid;
         fVersnelling = 0;     // hoe weten we dit
 
@@ -228,7 +220,7 @@ void Voertuig::changeTypeVoertuig() {
         fVertraagafstand = 50;
         fStopafstand = 15;
         fVertraagfactor = 0.4;
-
+        afkortingType = "BW";
         fSnelheid = fAbs_max_snelheid;
         fVersnelling = 0;     // hoe weten we dit
 
@@ -242,7 +234,7 @@ void Voertuig::changeTypeVoertuig() {
         fVertraagafstand = 50;
         fStopafstand = 15;
         fVertraagfactor = 0.4;
-
+        afkortingType = "Z";
         fSnelheid = fAbs_max_snelheid;
         fVersnelling = 0;     // hoe weten we dit
 
@@ -256,9 +248,13 @@ void Voertuig::changeTypeVoertuig() {
         fVertraagafstand = 50;
         fStopafstand = 15;
         fVertraagfactor = 0.4;
-
+        afkortingType = "P";
         fSnelheid = fAbs_max_snelheid;
         fVersnelling = 0;     // hoe weten we dit
 
     }
+}
+
+const string &Voertuig::getAfkortingType() const {
+    return afkortingType;
 }

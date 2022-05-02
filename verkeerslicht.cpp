@@ -10,7 +10,7 @@
 
 Verkeerslicht::Verkeerslicht(){
     _initCheck = this;
-    fCurrentKleurState = "rood";
+    fCurrentKleurState = "groen";
     fCyclus = 0;
     fPositie = 0;
     ENSURE(this->properlyInitialized(),"verkeerslichtconstructor moet geintitialiseerd worden");
@@ -70,9 +70,9 @@ void Verkeerslicht::actieAuto(vector<Voertuig*>& vectVoertuigen) {
     ENSURE(fCurrentKleurState != "", "het moet groen of rood zijn en niet leeg");
     ENSURE(vectVoertuigen.size() > 0, "vectVoertuigen mag niet leeg zijn");
     if(fCurrentKleurState == "groen"){
-        for(long long unsigned int i = 0; i < vectVoertuigen.size(); i++){
+        for(long long unsigned int i = 0; i <= vectVoertuigen.size() - 1; i++){
             if(vectVoertuigen[i]->getPositie() < this->fPositie){
-                vectVoertuigen[i]->versnellen(vectVoertuigen);
+                vectVoertuigen[i]->versnellen();
             }
         }
     } else if(fCurrentKleurState == "rood"){
@@ -80,10 +80,12 @@ void Verkeerslicht::actieAuto(vector<Voertuig*>& vectVoertuigen) {
             if(vectVoertuigen[i]->getPositie() < this->fPositie){
                 ENSURE(fPositie >= 0 && fPositie <= this->getBaan()->getLengte(),"positie moet bestaan");
                 int afstandPaalVoertuig = this->fPositie - vectVoertuigen[i]->getPositie();
-                if(afstandPaalVoertuig < 50 && afstandPaalVoertuig > 15){
-                    vectVoertuigen[i]->vertragen(vectVoertuigen);
-                } else if(afstandPaalVoertuig < 15 && afstandPaalVoertuig > 0){
-                   vectVoertuigen[i]->stoppen();
+                if(afstandPaalVoertuig > 0){
+                    if(afstandPaalVoertuig < 50 && afstandPaalVoertuig > 15){
+                        vectVoertuigen[i]->vertragen();
+                    } else if(afstandPaalVoertuig < 15 && afstandPaalVoertuig > 0){
+                        vectVoertuigen[i]->stoppen();
+                    }
                 }
             }
         }
@@ -100,7 +102,4 @@ bool Verkeerslicht::properlyInitialized() {
     return _initCheck == this;
 }
 
-void Verkeerslicht::simulatieVerkeerslicht(double fTijd, vector<Voertuig*> vectVoertuigen) {
-    changeState(fTijd);
-    actieAuto(vectVoertuigen);
-}
+
