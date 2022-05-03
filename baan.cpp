@@ -43,11 +43,6 @@ int Baan::getLengte(){
     return fLengte;
 }
 
-Verkeerslicht *Baan::getVerkeerslichtOpBaan(){
-    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer getVerkeerslischOpBaan werd opgeroepen");
-    return verkeerslichtOpBaan;
-}
-
 int Baan::getTijd(){
     REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer getTijd werd opgeroepen");
     return fTijd;
@@ -105,8 +100,8 @@ void Baan::setTijd(int tijd2) {
     Baan::fTijd = tijd2;
 }
 
-void Baan::addVerkeerslicht(Verkeerslicht* v1, vector<Verkeerslicht*> &fVerkeerslichten2){
-    fVerkeerslichten2.push_back(v1);
+void Baan::addVerkeerslicht(Verkeerslicht* v1){
+    fVerkeerslichten.push_back(v1);
 }
 
 void Baan::addToKruispunten(Kruispunt *k1) {
@@ -127,17 +122,23 @@ void Baan::simpel_uitvoer() {
             cout << "-> positie: " << vectVoertuigen[i]->getPositie() << endl;
             cout << "-> snelheid: " << vectVoertuigen[i]->getSnelheid() << endl;
             vectVoertuigen[i]->change_positie(fSimulatietijd);
+
             if(vectVoertuigen.size() == 0){
-                break;
+                return;
             }
+
             if(fSimulatietijd >= 0.966){
                 fTijd += 1;
                 fSimulatietijd = 0;
+                for(long long unsigned int k = 0; k <= fVerkeerslichten.size() -1 ;k++){
+                    fVerkeerslichten[k]->changeState(fTijd);
+                }
             } else{
                 fSimulatietijd += 0.0166;
             }
         }
-        this->simulatieVerkeerslicht();
+
+
     }
 }
 
@@ -149,17 +150,9 @@ void Baan::setFSimulatietijd(double fSimulatietijd2) {
     Baan::fSimulatietijd = fSimulatietijd2;
 }
 
-void Baan::simulatieVerkeerslicht(){
-    for(long long unsigned int i = 0; i <= fVerkeerslichten.size() -1 ;i++){
-        fVerkeerslichten[i]->changeState(fTijd);
-        cout << "kleur: " << fVerkeerslichten[i]->getFCurrentKleurState() << endl;
-    }
-}
-
 /* void Baan::grafischeImpressie();
- * Wiskunde erachter: Deel de lengte van de baan / 10 en zo veel '=' gaan er zijn. Vervolgens kijk of dat er po die positie een voertuig is.
+ * Wiskunde erachter: Deel de lengte van de baan / 10 en zo veel '=' gaan er zijn. Vervolgens kijk of dat er op die positie een voertuig is.
  * */
-
 void Baan::grafischeImpressie() {
     ofstream new_file("OUTPUTverkeer.txt");
     //BAAN
@@ -226,4 +219,8 @@ void Baan::grafischeImpressie() {
 
 void Baan::addBushalteToVector(Bushalte *b1) {
     fBushaltes.push_back(b1);
+}
+
+void Baan::addToGeneratoren(Voertuiggenerator *generator1) {
+    fGeneratoren.push_back(generator1);
 }

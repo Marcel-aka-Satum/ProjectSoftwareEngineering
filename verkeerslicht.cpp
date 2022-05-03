@@ -102,4 +102,8 @@ bool Verkeerslicht::properlyInitialized() {
     return _initCheck == this;
 }
 
+void Verkeerslicht::simulatieVerkeer(double fTijd, vector<Voertuig*>& vectVoertuigen) {
+    this->changeState(fTijd);
+}
+
 

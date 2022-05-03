@@ -20,6 +20,7 @@ private:
     int fPositie;
     int fCyclus;
     string fCurrentKleurState;
+    char afkortingKleur;
 
 public:
     bool properlyInitialized();
@@ -43,6 +44,9 @@ public:
     void actieAuto(vector<Voertuig*> &vectVoertuigen);
 
     const string &getFCurrentKleurState();
+
+    void simulatieVerkeer(double fTijd, vector<Voertuig*>& vectVoertuigen);
+
 
 
 };

@@ -75,7 +75,7 @@ double Voertuig::getAbs_max_snelheid(){
     return fAbs_max_snelheid;
 }
 
-//Bereken nieuwe snelheid en positie van voertuig
+//Bereken nieuwe snelheid en positie van voertuig en verwijder uit baan indien nodig
 void Voertuig::change_positie(double fSimulatietijd) {
     REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
     REQUIRE((fSnelheid >= 0), "De snelheid van jouw Voertuig is < 0");
@@ -171,13 +171,12 @@ void Voertuig::vertragen() {
 
 void Voertuig::versnellen() {
     REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
-    ENSURE(this->getBaan()->getVerkeerslichtOpBaan()->getFCurrentKleurState() == "groen", "Het is rood jouw auto mag niet versnellen");
     this->fMax_snelheid = this->fAbs_max_snelheid;
 }
 
 void Voertuig::stoppen() {
     REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
-    this->fVersnelling = - ((this->fMax_remfactor * this->fSnelheid) / this->fMax_snelheid);
+    fVersnelling = - ((this->fMax_remfactor * this->fSnelheid) / this->fMax_snelheid);
     ENSURE(this->fVersnelling >= 0, "Versnelling van jouw auto is niet correct");
 }
 

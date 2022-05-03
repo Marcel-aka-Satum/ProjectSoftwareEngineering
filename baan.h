@@ -15,6 +15,7 @@ class Verkeerslicht;
 class Voertuig;
 class Bushalte;
 class Kruispunt;
+class Voertuiggenerator;
 
 class Baan {
 private:
@@ -23,8 +24,6 @@ private:
     string fNaam;
 
     int fLengte;
-
-    Verkeerslicht* verkeerslichtOpBaan;
 
     vector<Verkeerslicht*> fVerkeerslichten;
 
@@ -37,6 +36,8 @@ private:
     vector<Voertuig*> vectVoertuigen;
 
     vector <Bushalte*> fBushaltes;
+
+    vector <Voertuiggenerator*> fGeneratoren;
 
 public:
 
@@ -60,11 +61,9 @@ public:
 
     int getLengte();
 
-    Verkeerslicht *getVerkeerslichtOpBaan();
-
     void addVector(Voertuig* v1, vector<Voertuig*> &vectVoertuigen2);
 
-    void addVerkeerslicht(Verkeerslicht* v1, vector<Verkeerslicht*> &fVerkeerslichten2);
+    void addVerkeerslicht(Verkeerslicht* v1);
 
     int searchVoertuig(Voertuig* v, Baan b1, vector<Voertuig*> vectVoertuigen2);
 
@@ -78,13 +77,15 @@ public:
 
     double getFSimulatietijd() const;
 
-    void setFSimulatietijd(double fSimulatietijd);
+    void setFSimulatietijd(double fSimulatietijd2);
 
     void grafischeImpressie();
 
-    void simulatieVerkeerslicht();
-
     void addBushalteToVector(Bushalte* b1);
+
+    char getAfkortingKleur() const;
+
+    void addToGeneratoren(Voertuiggenerator* generator1);
 
 };
 

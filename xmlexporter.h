@@ -15,7 +15,7 @@
 #include <sstream>
 
 
-void startParsing2(vector<Baan*>& banen, Verkeerslicht& l1, Voertuiggenerator& g1){
+void startParsing2(vector<Baan*>& banen){
 
     // stap 1
     //steek input in doc object
@@ -50,6 +50,8 @@ void startParsing2(vector<Baan*>& banen, Verkeerslicht& l1, Voertuiggenerator& g
         Voertuig* v1 = new Voertuig;
         Baan* b1 = new Baan;
         Bushalte* bushalte1 = new Bushalte;
+        Voertuiggenerator* generator1 = new Voertuiggenerator;
+        Verkeerslicht* l1 = new Verkeerslicht;
 
         for(TiXmlElement* k = e->FirstChildElement(); k != NULL; k = k->NextSiblingElement()){
             Kruispunt* k1 = new Kruispunt;
@@ -67,17 +69,18 @@ void startParsing2(vector<Baan*>& banen, Verkeerslicht& l1, Voertuiggenerator& g
                 for(long long unsigned int i = 0; i <= banen.size() -1; i++){
                     if(banen[i]->getNaam() == a){
                         b1 = banen[i];
+                        l1->setBaan(b1);
+                        break;
                     }
                 }
-                l1.setBaan(b1);
             } else if (elemName == "VERKEERSLICHT" && elemName2 == "positie"){
                 int i;
                 istringstream(k->GetText()) >> i;
-                l1.setPositie(i);
+                l1->setPositie(i);
             } else if (elemName == "VERKEERSLICHT" && elemName2 == "cyclus"){
                 int i;
                 istringstream(k->GetText()) >> i;
-                l1.setCyclus(i);
+                l1->setCyclus(i);
             } else if (elemName == "VOERTUIG" && elemName2 == "baan"){
                 string a = k->GetText();
                 for(long long unsigned int i = 0; i <= banen.size() -1; i++){
@@ -94,14 +97,19 @@ void startParsing2(vector<Baan*>& banen, Verkeerslicht& l1, Voertuiggenerator& g
                 string a = k->GetText();
                 v1->setType(a);
             } else if (elemName == "VOERTUIGGENERATOR" && elemName2 == "baan"){
-                g1.setBaan(b1);
+                string a = k->GetText();
+                for(long long unsigned int i = 0; i <= banen.size() -1; i++){
+                    if(banen[i]->getNaam() == a){
+                        generator1->setBaan(banen[i]);
+                    }
+                }
             } else if(elemName == "VOERTUIGGENERATOR" && elemName2 == "frequentie"){
                 int i;
                 istringstream(k->GetText()) >> i;
-                g1.setFrequentie(i);
+                generator1->setFrequentie(i);
             } else if(elemName == "VOERTUIGGENERATOR" && elemName2 == "type"){
                 string a = k->GetText();
-                g1.setType(a);
+                generator1->setType(a);
             } else if(elemName == "BUSHALTE" && elemName2 == "baan"){
                 string a = k->GetText();
                 for(long long unsigned int i = 0; i <= banen.size() -1; i++){
@@ -141,13 +149,23 @@ void startParsing2(vector<Baan*>& banen, Verkeerslicht& l1, Voertuiggenerator& g
                 }
             }
         } else if(elemName == "VERKEERSLICHT"){
-            b1->addVerkeerslicht(&l1, b1->getFVerkeerslichten());
+            for(long long unsigned int i = 0; i <= banen.size() - 1; i++){
+                if(banen[i]->getNaam() == l1->getBaan()->getNaam()){
+                    banen[i]->addVerkeerslicht(l1);
+                }
+            }
         } else if(elemName == "BAAN"){
             banen.push_back(b1);
         } else if(elemName == "BUSHALTE"){
             for(long long unsigned int i = 0; i <= banen.size() -1 ;i++){
                 if(banen[i]->getNaam() == bushalte1->getBaan()->getNaam()){
                     banen[i]->addBushalteToVector(bushalte1);
+                }
+            }
+        } else if(elemName == "VOERTUIGGENERATOR"){
+            for(long long unsigned int i = 0; i <= banen.size() -1 ;i++){
+                if(banen[i]->getNaam() == generator1->getBaan()->getNaam()){
+                    banen[i]->addToGeneratoren(generator1);
                 }
             }
         }

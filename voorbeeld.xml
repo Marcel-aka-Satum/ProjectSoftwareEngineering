@@ -1,32 +1,32 @@
 <ROOT>
     <BAAN>
         <naam>Eenteststraat</naam>
-        <lengte>1000</lengte>
+        <lengte>1200</lengte>
     </BAAN>
-
-    <BUSHALTE>
-        <baan>Eenteststraat</baan>
-        <positie>250</positie>
-        <wachttijd>20</wachttijd>
-    </BUSHALTE>
-
-    <BUSHALTE>
-        <baan>Eenteststraat</baan>
-        <positie>550</positie>
-        <wachttijd>20</wachttijd>
-    </BUSHALTE>
 
     <VERKEERSLICHT>
         <baan>Eenteststraat</baan>
-        <positie>700</positie>
-        <cyclus>10</cyclus>
+        <positie>1050</positie>
+        <cyclus>1</cyclus>
     </VERKEERSLICHT>
 
     <VOERTUIG>
         <baan>Eenteststraat</baan>
-        <positie>100</positie>
+        <positie>50</positie>
         <type>auto</type>
     </VOERTUIG>
+
+    <VOERTUIGGENERATOR>
+        <baan>Eenteststraat</baan>
+        <frequentie>5</frequentie>
+    </VOERTUIGGENERATOR>
+
+    <VOERTUIGGENERATOR>
+        <baan>Eenteststraat</baan>
+        <frequentie>10</frequentie>
+    </VOERTUIGGENERATOR>
+
+
 
 </ROOT>
 
