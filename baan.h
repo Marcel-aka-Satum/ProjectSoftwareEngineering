@@ -75,7 +75,7 @@ public:
 
     void simpel_uitvoer();
 
-    double getFSimulatietijd() const;
+    double getFSimulatietijd();
 
     void setFSimulatietijd(double fSimulatietijd2);
 

@@ -11,3 +11,7 @@ int Kruispunt::getPositie() const {
 void Kruispunt::setPositie(int positie2) {
     Kruispunt::positie = positie2;
 }
+
+bool Kruispunt::properlyInitialized() {
+    return _initCheck == this;
+}

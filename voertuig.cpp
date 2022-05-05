@@ -186,15 +186,19 @@ double Voertuig::getFMaxRemfactor() {
     return fMax_remfactor;
 }
 
-const string &Voertuig::getType() const {
+const string & Voertuig::getType() {
+    REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
     return type;
 }
 
 void Voertuig::setType(const string &type2) {
+    REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
     Voertuig::type = type2;
+    ENSURE(type2 != "","string mag niet leeg zijn");
 }
 
 void Voertuig::changeTypeVoertuig() {
+    REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
     if(type == "bus"){
         _initCheck = this;
         fLengte = 12;
@@ -208,6 +212,17 @@ void Voertuig::changeTypeVoertuig() {
         afkortingType = "B";
         fSnelheid = fAbs_max_snelheid;
         fVersnelling = 0;     // hoe weten we dit
+        ENSURE(fLengte = 12,"lengte van de bus is 12");
+        ENSURE(fAbs_max_snelheid = 11.4, "absolute max snelheid van de bus is 11.4");
+        ENSURE(fMax_versnelling = 1.22, "Maximale versnelling van de bus is 1.22");
+        ENSURE(fMax_remfactor = 4.29, "Max remfactor van de bus is 4.29");
+        ENSURE(fMin_volgafstand = 12,"Min volg afstand van de bus is 12");
+        ENSURE(fVertraagafstand = 50,"de vertraag afstand van de bus is 50");
+        ENSURE(fStopafstand = 15,"stop afstand van de bus is 15");
+        ENSURE(fVertraagfactor = 0.4,"vertraag factor van de bus is 0.4");
+        //ENSURE(afkortingType = "B","de afkorting van de bus is B");
+        ENSURE(fSnelheid = fAbs_max_snelheid, "De snelheid is evengroot als de absolute max snelheid in het begin");
+        ENSURE(fVersnelling = 0, "versnelling is in het begin 0");
 
     } else if(type == "brandweerwagen"){
         _initCheck = this;
@@ -222,6 +237,17 @@ void Voertuig::changeTypeVoertuig() {
         afkortingType = "BW";
         fSnelheid = fAbs_max_snelheid;
         fVersnelling = 0;     // hoe weten we dit
+        ENSURE(fLengte = 10,"lengte van de brandweerwagen is 10");
+        ENSURE(fAbs_max_snelheid = 14.6, "absolute max snelheid van de brandweerwagen is 14.6");
+        ENSURE(fMax_versnelling = 1.33, "Maximale versnelling van de brandweerwagen is 1.33");
+        ENSURE(fMax_remfactor = 4.56, "Max remfactor van de brandweerwagen is 4.56");
+        ENSURE(fMin_volgafstand = 10,"Min volg afstand van de brandweerwagen is 10");
+        ENSURE(fVertraagafstand = 50,"de vertraag afstand van de brandweerwagen is 50");
+        ENSURE(fStopafstand = 15,"stop afstand van de brandweerwagen is 15");
+        ENSURE(fVertraagfactor = 0.4,"vertraag factor van de brandweerwagen is 0.4");
+        //ENSURE(afkortingType = "BW","de afkorting van de brandweerwagen is BW);
+        ENSURE(fSnelheid = fAbs_max_snelheid, "De snelheid is evengroot als de absolute max snelheid in het begin");
+        ENSURE(fVersnelling = 0, "versnelling is in het begin 0");
 
     } else if(type == "ziekenwagen"){
         _initCheck = this;
@@ -236,6 +262,17 @@ void Voertuig::changeTypeVoertuig() {
         afkortingType = "Z";
         fSnelheid = fAbs_max_snelheid;
         fVersnelling = 0;     // hoe weten we dit
+        ENSURE(fLengte = 8,"lengte van de ziekenwagen is 8");
+        ENSURE(fAbs_max_snelheid = 15.5, "absolute max snelheid van de ziekenwagen is 15.5");
+        ENSURE(fMax_versnelling = 1.44, "Maximale versnelling van de ziekenwagen is 1.44");
+        ENSURE(fMax_remfactor = 4.47, "Max remfactor van de ziekenwagen is 4.47");
+        ENSURE(fMin_volgafstand = 8,"Min volg afstand van de ziekenwagen is 8");
+        ENSURE(fVertraagafstand = 50,"de vertraag afstand van de ziekenwagen is 50");
+        ENSURE(fStopafstand = 15,"stop afstand van de ziekenwagen is 15");
+        ENSURE(fVertraagfactor = 0.4,"vertraag factor van de ziekenwagen is 0.4");
+        //ENSURE(afkortingType = "Z","de afkorting van de ziekenwagen is Z);
+        ENSURE(fSnelheid = fAbs_max_snelheid, "De snelheid is evengroot als de absolute max snelheid in het begin");
+        ENSURE(fVersnelling = 0, "versnelling is in het begin 0");
 
     } else if(type == "politiecombi"){
         _initCheck = this;
@@ -250,10 +287,21 @@ void Voertuig::changeTypeVoertuig() {
         afkortingType = "P";
         fSnelheid = fAbs_max_snelheid;
         fVersnelling = 0;     // hoe weten we dit
-
+        ENSURE(fLengte = 6,"lengte van de politiecombi is 6");
+        ENSURE(fAbs_max_snelheid = 17.2, "absolute max snelheid van de politiecombi is 17.2");
+        ENSURE(fMax_versnelling = 1.55, "Maximale versnelling van de politiecombi is 1.55");
+        ENSURE(fMax_remfactor = 4.92, "Max remfactor van de politiecombi is 4.92");
+        ENSURE(fMin_volgafstand = 6,"Min volg afstand van de politiecombi is 6");
+        ENSURE(fVertraagafstand = 50,"de vertraag afstand van de politiecombi is 50");
+        ENSURE(fStopafstand = 15,"stop afstand van de politiecombi is 15");
+        ENSURE(fVertraagfactor = 0.4,"vertraag factor van de politiecombi is 0.4");
+        //ENSURE(afkortingType = "P","de afkorting van de politiecombi is P);
+        ENSURE(fSnelheid = fAbs_max_snelheid, "De snelheid is evengroot als de absolute max snelheid in het begin");
+        ENSURE(fVersnelling = 0, "versnelling is in het begin 0");
     }
 }
 
-const string &Voertuig::getAfkortingType() const {
+const string & Voertuig::getAfkortingType() {
+    REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
     return afkortingType;
 }

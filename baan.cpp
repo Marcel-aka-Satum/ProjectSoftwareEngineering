@@ -73,6 +73,7 @@ int Baan::searchVoertuig(Voertuig* v, Baan b1, vector<Voertuig*> vectVoertuigen2
 
 void Baan::insertionSort(vector<Voertuig*> &vectVoertuigen2){
     REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer insertionSort werd opgeroepen");
+    REQUIRE(!vectVoertuigen2.empty(),"vector van voertuigen mag niet leeg zijn voor sort functie");
     int n = vectVoertuigen2.size() - 1;
     int key;
     int j;
@@ -93,26 +94,33 @@ bool Baan::properlyInitialized() {
 }
 
 vector<Verkeerslicht *> &Baan::getFVerkeerslichten(){
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer getFVerkeerslichten werd opgeroepen");
     return fVerkeerslichten;
 }
 
 void Baan::setTijd(int tijd2) {
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer setTijd werd opgeroepen");
     Baan::fTijd = tijd2;
 }
 
 void Baan::addVerkeerslicht(Verkeerslicht* v1){
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer addVerkeerslicht werd opgeroepen");
     fVerkeerslichten.push_back(v1);
 }
 
 void Baan::addToKruispunten(Kruispunt *k1) {
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer addToKruispunten werd opgeroepen");
     fKruispunten.push_back(k1);
 }
 
 vector<Kruispunt *> &Baan::getFKruispunten(){
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer getFKruispunten werd opgeroepen");
     return fKruispunten;
 }
 
 void Baan::simpel_uitvoer() {
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer simpel_uitvoer werd opgeroepen");
+    REQUIRE(!vectVoertuigen.empty(),"vector van voetuigen mag niet leeg zijn");
     insertionSort(vectVoertuigen);
     while (!vectVoertuigen.empty()) {
         cout << "Tijd: " << fTijd << endl;
@@ -137,16 +145,17 @@ void Baan::simpel_uitvoer() {
                 fSimulatietijd += 0.0166;
             }
         }
-
-
     }
+    ENSURE(fSimulatietijd <= 1,"simulatie tijd moet vanaf 1 terug gereset worden.");
 }
 
-double Baan::getFSimulatietijd() const {
+double Baan::getFSimulatietijd() {
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer getFsimulatietijd werd opgeroepen");
     return fSimulatietijd;
 }
 
 void Baan::setFSimulatietijd(double fSimulatietijd2) {
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer setFSimulatietijd werd opgeroepen");
     Baan::fSimulatietijd = fSimulatietijd2;
 }
 
@@ -154,6 +163,7 @@ void Baan::setFSimulatietijd(double fSimulatietijd2) {
  * Wiskunde erachter: Deel de lengte van de baan / 10 en zo veel '=' gaan er zijn. Vervolgens kijk of dat er op die positie een voertuig is.
  * */
 void Baan::grafischeImpressie() {
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer grafischImpressie werd opgeroepen");
     ofstream new_file("OUTPUTverkeer.txt");
     //BAAN
     new_file << this->getNaam() << "         | ";
@@ -218,9 +228,11 @@ void Baan::grafischeImpressie() {
 }
 
 void Baan::addBushalteToVector(Bushalte *b1) {
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer addBushalteToVector werd opgeroepen");
     fBushaltes.push_back(b1);
 }
 
 void Baan::addToGeneratoren(Voertuiggenerator *generator1) {
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer addToGeneratore werd opgeroepen");
     fGeneratoren.push_back(generator1);
 }

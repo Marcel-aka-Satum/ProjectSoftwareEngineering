@@ -39,12 +39,15 @@ bool Voertuiggenerator::properlyInitialized() {
     return _initCheck == this;
 }
 
-const string &Voertuiggenerator::getType() const {
+const string & Voertuiggenerator::getType() {
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer getType werd opgeroepen");
     return type;
 }
 
-void Voertuiggenerator::setType(const string &type) {
-    Voertuiggenerator::type = type;
+void Voertuiggenerator::setType(const string &type1) {
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer setType werd opgeroepen");
+    Voertuiggenerator::type = type1;
+    ENSURE(type1 !="","string niet leeg")
 }
 
 

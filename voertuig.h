@@ -76,13 +76,13 @@ public:
 
     void stoppen();
 
-    const string &getType() const;
+    const string & getType();
 
     void setType(const string &type);
 
     void changeTypeVoertuig();
 
-    const string &getAfkortingType() const;
+    const string & getAfkortingType();
 };
 
 

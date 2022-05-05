@@ -33,7 +33,7 @@ public:
 
     void setBaan(Baan *baan);
 
-    const string &getType() const;
+    const string & getType();
 
     void setType(const string &type);
 
