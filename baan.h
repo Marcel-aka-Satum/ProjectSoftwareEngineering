@@ -39,6 +39,8 @@ private:
 
     vector <Voertuiggenerator*> fGeneratoren;
 
+    double fSpawnTime;
+
 public:
 
     bool properlyInitialized();
@@ -86,6 +88,12 @@ public:
     char getAfkortingKleur() const;
 
     void addToGeneratoren(Voertuiggenerator* generator1);
+
+    void simulatieVoertuiggenerator();
+
+    double getFSpawnTime() const;
+
+    void setFSpawnTime(double fSpawnTime2);
 
 };
 

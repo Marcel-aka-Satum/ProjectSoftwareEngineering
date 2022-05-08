@@ -11,8 +11,12 @@ int main() {
 
     //lees de xml bestand in en voeg banen in de vector en zijn attributen erbij
     startParsing2(banen);
-    banen[0]->simpel_uitvoer();
 
+    //grafische impressie in een OUTPUTverkeer.txt bestand
+    banen[0]->grafischeImpressie();
+
+    //voer simulatie uit tot er geen auto's in de baan zijn
+    banen[0]->simpel_uitvoer();
 
     return 0;
 }

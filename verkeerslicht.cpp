@@ -80,6 +80,9 @@ void Verkeerslicht::actieAuto(vector<Voertuig*>& vectVoertuigen) {
             if(vectVoertuigen[i]->getPositie() < this->fPositie){
                 ENSURE(fPositie >= 0 && fPositie <= this->getBaan()->getLengte(),"positie moet bestaan");
                 int afstandPaalVoertuig = this->fPositie - vectVoertuigen[i]->getPositie();
+                if(vectVoertuigen[i]->getType() == "politiecombi" || vectVoertuigen[i]->getType() == "ziekenwagen" || vectVoertuigen[i]->getType() == "brandweerwagen"){
+                    break;
+                }
                 if(afstandPaalVoertuig > 0){
                     if(afstandPaalVoertuig < 50 && afstandPaalVoertuig > 15){
                         vectVoertuigen[i]->vertragen();

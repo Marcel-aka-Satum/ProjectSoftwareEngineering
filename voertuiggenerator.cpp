@@ -43,8 +43,8 @@ const string &Voertuiggenerator::getType() const {
     return type;
 }
 
-void Voertuiggenerator::setType(const string &type) {
-    Voertuiggenerator::type = type;
+void Voertuiggenerator::setType(const string &type2) {
+    Voertuiggenerator::type = type2;
 }
 
 

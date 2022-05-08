@@ -52,11 +52,9 @@ public:
 
     double getAbs_max_snelheid();
 
-    void print();
+    void change_positie();
 
-    void change_positie(double fSimulatietijd);
-
-    void change_versnelling(vector<Voertuig*> vectVoertuigen);
+    void change_versnelling(vector<Voertuig*> &vectVoertuigen);
 
     int getFindexVoertuig();
 
@@ -83,6 +81,8 @@ public:
     void changeTypeVoertuig();
 
     const string &getAfkortingType() const;
+
+    void setAfkortingType(const string &afkortingType);
 };
 
 

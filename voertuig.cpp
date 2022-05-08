@@ -23,7 +23,10 @@ Voertuig::Voertuig() {
     fVertraagfactor = 0.4;
     afkortingType = "A";
     fSnelheid = fAbs_max_snelheid;
-    fVersnelling = 0;     // hoe weten we dit
+    fVersnelling = 0;
+    fVolgafstand = 0;
+    fSnelheidsverschil = 0;
+    fMax_snelheid = fAbs_max_snelheid;
 
     fBaan = new Baan;
     ENSURE(this->properlyInitialized(), "De voertuigconstructor is slecht geinitialiseerd");
@@ -58,11 +61,6 @@ void Voertuig::setPositie(int positie) {
     ENSURE((positie >= 0), "Positie is kleiner dan 0");
 }
 
-
-void Voertuig::print() {
-
-}
-
 double Voertuig::getSnelheid(){
     REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
     REQUIRE((fSnelheid >= 0), "Positie is kleiner dan 0");
@@ -76,11 +74,11 @@ double Voertuig::getAbs_max_snelheid(){
 }
 
 //Bereken nieuwe snelheid en positie van voertuig en verwijder uit baan indien nodig
-void Voertuig::change_positie(double fSimulatietijd) {
+void Voertuig::change_positie() {
     REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
     REQUIRE((fSnelheid >= 0), "De snelheid van jouw Voertuig is < 0");
-    REQUIRE((fVersnelling >= 0 && fVersnelling <= 1.44), "De versnelling van jouw Voertuig is < 0 of > 1.44");
 
+    double fSimulatietijd = 0.0166;
     if(fSnelheid + (fVersnelling * fSimulatietijd) < 0 ){
         fPositie = fPositie - ((fVersnelling * fVersnelling) / 2 * fVersnelling);
         fSnelheid = 0;
@@ -90,20 +88,17 @@ void Voertuig::change_positie(double fSimulatietijd) {
         fPositie = fPositie + (fSnelheid * fSimulatietijd) + (fVersnelling * ((fSimulatietijd * fSimulatietijd) / 2));
     }
 
-    if(fSnelheid >= fAbs_max_snelheid){
-        fSnelheid = fAbs_max_snelheid;
-    }
     if(checkInBaan(*this->getBaan(), this->getBaan()->getVectVoertuigen())){
         verwijderUitBaan(*this->getBaan(), this->getBaan()->getVectVoertuigen());
         return;
     }
     ENSURE((fPositie >= 0 && fPositie <= this->getBaan()->getLengte()),"Positite van jouw voertuig is buiten de baan");
     ENSURE((fSnelheid >= 0 && fSnelheid <= fAbs_max_snelheid),"Snelheid van jouw voertuig is ongeldig");
-    ENSURE((fVersnelling >= 0 && fVersnelling <= fMax_versnelling), "Versnelling van jouw voertuig is ongeldig");
+//    ENSURE((fVersnelling >= 0 && fVersnelling <= fMax_versnelling), "Versnelling van jouw voertuig is ongeldig");
 }
 
 
-void Voertuig::change_versnelling(vector<Voertuig*> vectVoertuigen){
+void Voertuig::change_versnelling(vector<Voertuig*> &vectVoertuigen){
     REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
     REQUIRE((vectVoertuigen.size() >= 1), "Voertuigen zijn niet op de baan");
 
@@ -113,7 +108,7 @@ void Voertuig::change_versnelling(vector<Voertuig*> vectVoertuigen){
         return;
     }
 
-    if(index+1 == vectVoertuigen.size()){
+    if(index == vectVoertuigen.size()){
         fDelta = 0;
     } else{
         fVolgafstand = vectVoertuigen[index+1]->getPositie() - vectVoertuigen[index]->getPositie() - vectVoertuigen[index + 1]->getFLengte();
@@ -124,7 +119,6 @@ void Voertuig::change_versnelling(vector<Voertuig*> vectVoertuigen){
     fVersnelling = fMax_versnelling * (1 - pow((fSnelheid / fMax_snelheid), 4) - (pow(fDelta, 2)));
     ENSURE((fVolgafstand >= 0), "Volgafstand tussen jouw 2 voertuigen is niet correct");
     ENSURE((fSnelheidsverschil >= 0), "De snelheidsverschil van jouw voertuig is kleiner dan 0");
-    ENSURE((fVersnelling >= 0), "De versnelling van jouw voertuig is niet correct");
 }
 
 int Voertuig::getFindexVoertuig(){
@@ -164,20 +158,19 @@ void Voertuig::verwijderUitBaan(Baan& b1, vector<Voertuig*> vectVoertuigen){
 }
 
 void Voertuig::vertragen() {
-    REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd"); //TODO:GAAT NIET WERKEN MET VERKEERSLICHTEN FIX LATER
+    REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
     ENSURE(fMax_snelheid >= 0, "De Max_snelheid van jouw voertuig is niet correct");
-    this->fMax_versnelling = fVertraagfactor * fAbs_max_snelheid;
+    fMax_versnelling = fVertraagfactor * fAbs_max_snelheid;
 }
 
 void Voertuig::versnellen() {
     REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
-    this->fMax_snelheid = this->fAbs_max_snelheid;
+    fMax_snelheid = fAbs_max_snelheid;
 }
 
 void Voertuig::stoppen() {
     REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
-    fVersnelling = - ((this->fMax_remfactor * this->fSnelheid) / this->fMax_snelheid);
-    ENSURE(this->fVersnelling >= 0, "Versnelling van jouw auto is niet correct");
+    fVersnelling = - ((fMax_remfactor * fSnelheid) / fMax_snelheid);
 }
 
 double Voertuig::getFMaxRemfactor() {
@@ -207,7 +200,8 @@ void Voertuig::changeTypeVoertuig() {
         fVertraagfactor = 0.4;
         afkortingType = "B";
         fSnelheid = fAbs_max_snelheid;
-        fVersnelling = 0;     // hoe weten we dit
+        fVersnelling = 0;
+        afkortingType = "B";
 
     } else if(type == "brandweerwagen"){
         _initCheck = this;
@@ -221,7 +215,7 @@ void Voertuig::changeTypeVoertuig() {
         fVertraagfactor = 0.4;
         afkortingType = "BW";
         fSnelheid = fAbs_max_snelheid;
-        fVersnelling = 0;     // hoe weten we dit
+        fVersnelling = 0;
 
     } else if(type == "ziekenwagen"){
         _initCheck = this;
@@ -235,7 +229,7 @@ void Voertuig::changeTypeVoertuig() {
         fVertraagfactor = 0.4;
         afkortingType = "Z";
         fSnelheid = fAbs_max_snelheid;
-        fVersnelling = 0;     // hoe weten we dit
+        fVersnelling = 0;
 
     } else if(type == "politiecombi"){
         _initCheck = this;
@@ -249,11 +243,15 @@ void Voertuig::changeTypeVoertuig() {
         fVertraagfactor = 0.4;
         afkortingType = "P";
         fSnelheid = fAbs_max_snelheid;
-        fVersnelling = 0;     // hoe weten we dit
+        fVersnelling = 0;
 
     }
 }
 
 const string &Voertuig::getAfkortingType() const {
     return afkortingType;
+}
+
+void Voertuig::setAfkortingType(const string &afkortingType2) {
+    Voertuig::afkortingType = afkortingType2;
 }

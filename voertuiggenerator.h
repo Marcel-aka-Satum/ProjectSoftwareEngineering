@@ -35,7 +35,7 @@ public:
 
     const string &getType() const;
 
-    void setType(const string &type);
+    void setType(const string &type2);
 
 };
 

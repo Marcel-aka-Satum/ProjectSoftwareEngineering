@@ -4,45 +4,18 @@
         <lengte>500</lengte>
     </BAAN>
 
-    <VERKEERSLICHT>
-        <baan>Middelheimlaan</baan>
-        <positie>400</positie>
-        <cyclus>20</cyclus>
-    </VERKEERSLICHT>
 
     <VERKEERSLICHT>
-        <baan>Middelheimlaan</baan>
-        <positie>200</positie>
-        <cyclus>20</cyclus>
-    </VERKEERSLICHT>
-
-    <BUSHALTE>
         <baan>Middelheimlaan</baan>
         <positie>250</positie>
-        <wachttijd>20</wachttijd>
-    </BUSHALTE>
-
-    <BUSHALTE>
-        <baan>Middelheimlaan</baan>
-        <positie>400</positie>
-        <wachttijd>20</wachttijd>
-    </BUSHALTE>
-
-    <VOERTUIG>
-        <baan>Middelheimlaan</baan>
-        <positie>100</positie>
-        <type>bus</type>
-    </VOERTUIG>
-
-    <VOERTUIG>
-        <baan>Middelheimlaan</baan>
-        <positie>200</positie>
-        <type>brandweerwagen</type>
-    </VOERTUIG>
+        <cyclus>20</cyclus>
+    </VERKEERSLICHT>
 
     <VOERTUIG>
         <baan>Middelheimlaan</baan>
         <positie>300</positie>
         <type>ziekenwagen</type>
     </VOERTUIG>
+
+
 </ROOT>
