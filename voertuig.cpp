@@ -149,6 +149,7 @@ bool Voertuig::checkInBaan(Baan& b1, vector<Voertuig*> vectVoertuigen){
 }
 
 void Voertuig::verwijderUitBaan(Baan& b1, vector<Voertuig*> vectVoertuigen){
+    REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
     b1.getVectVoertuigen().pop_back();
 }
 

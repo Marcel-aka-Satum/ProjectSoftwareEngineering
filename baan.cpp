@@ -111,8 +111,9 @@ void Baan::addVerkeerslicht(Verkeerslicht* v1){
 }
 
 void Baan::addToKruispunten(Kruispunt *k1) {
-
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer addToKruispunten werd opgeroepen");
     fKruispunten.push_back(k1);
+    ENSURE(k1 != NULL, "het moet een kruipunt zijn");
 }
 
 vector<Kruispunt *> &Baan::getFKruispunten(){

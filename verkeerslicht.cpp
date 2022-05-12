@@ -7,6 +7,9 @@
 #include "voertuig.h"
 #include "DesignByContract.h"
 
+bool Verkeerslicht::properlyInitialized() {
+    return _initCheck == this;
+}
 
 Verkeerslicht::Verkeerslicht(){
     _initCheck = this;
@@ -23,18 +26,6 @@ void Verkeerslicht::setBaan(Baan *baan) {
     ENSURE(baan != NULL,"het moet een baan zijn");
 }
 
-void Verkeerslicht::setPositie(int positie2) {
-    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer setPositie werd opgeroepen");
-    Verkeerslicht::fPositie = positie2;
-    ENSURE(fPositie >= 0 && fPositie <= fBaan->getLengte(),"positie moet bestaan");
-}
-
-void Verkeerslicht::setCyclus(int cyclus) {
-    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer setCyclus werd opgeroepen");
-    Verkeerslicht::fCyclus = cyclus;
-    ENSURE(cyclus >= 0,"de cyclus kan groter of gelijk zijn aan 0");
-}
-
 Baan *Verkeerslicht::getBaan(){
     REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer getBaan werd opgeroepen");
     return fBaan;
@@ -47,9 +38,21 @@ int Verkeerslicht::getPositie(){
 
 }
 
+void Verkeerslicht::setPositie(int positie2) {
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer setPositie werd opgeroepen");
+    Verkeerslicht::fPositie = positie2;
+    ENSURE(fPositie >= 0 && fPositie <= fBaan->getLengte(),"positie moet bestaan");
+}
+
 int Verkeerslicht::getCyclus(){
     REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer getCyclus werd opgeroepen");
     return fCyclus;
+}
+
+void Verkeerslicht::setCyclus(int cyclus) {
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer setCyclus werd opgeroepen");
+    Verkeerslicht::fCyclus = cyclus;
+    ENSURE(cyclus >= 0,"de cyclus kan groter of gelijk zijn aan 0");
 }
 
 void Verkeerslicht::changeState(double fTijd){
@@ -99,10 +102,6 @@ void Verkeerslicht::actieAuto(vector<Voertuig*>& vectVoertuigen) {
 const string &Verkeerslicht::getFCurrentKleurState(){
     REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer getFCurrentKleurstate werd opgeroepen");
     return fCurrentKleurState;
-}
-
-bool Verkeerslicht::properlyInitialized() {
-    return _initCheck == this;
 }
 
 void Verkeerslicht::simulatieVerkeer(double fTijd, vector<Voertuig*>& vectVoertuigen) {

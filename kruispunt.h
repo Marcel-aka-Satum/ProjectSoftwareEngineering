@@ -16,13 +16,29 @@ private:
 
     Kruispunt* _initCheck;
 public:
+
+    /**
+     \n ENSURE(this->properlyInitialized(), "Kruispunt constructor moet goed geinitialiseerd worden");
+     */
     Kruispunt();
+    bool properlyInitialized();
+
+    /**
+     \n REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer getPositie werd opgeroepen");
+     */
 
     int getPositie();
 
+    /**
+     \n REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer setPositie werd opgeroepen");
+     */
+
     void setPositie(int positie);
 
-    bool properlyInitialized();
+    /**
+     \n ENSURE(positie2 >= 0,"de positie kan niet negatief zijn");
+     */
+
 };
 
 

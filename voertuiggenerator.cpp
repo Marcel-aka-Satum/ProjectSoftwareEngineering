@@ -13,6 +13,10 @@ Voertuiggenerator::Voertuiggenerator() {
     ENSURE(this->properlyInitialized(), "voertuiggeneratorconstructor moet goed geinitialiseerd worden");
 }
 
+bool Voertuiggenerator::properlyInitialized() {
+    return _initCheck == this;
+}
+
 int Voertuiggenerator::getFrequentie(){
     REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer getFrequentie werd opgeroepen");
     return fFrequentie;
@@ -35,15 +39,13 @@ void Voertuiggenerator::setBaan(Baan *baan) {
     ENSURE(baan !=NULL, "het moet een baan zijn");
 }
 
-bool Voertuiggenerator::properlyInitialized() {
-    return _initCheck == this;
-}
-
-const string &Voertuiggenerator::getType() const {
+const string & Voertuiggenerator::getType() {
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer getType werd opgeroepen");
     return type;
 }
 
 void Voertuiggenerator::setType(const string &type2) {
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer setType werd opgeroepen");
     Voertuiggenerator::type = type2;
 }
 

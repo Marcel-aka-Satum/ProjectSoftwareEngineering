@@ -12,6 +12,10 @@ Bushalte::Bushalte() {
     ENSURE(this->properlyInitialized(), "Bushalte constructor moet goed geinitialiseerd worden");
 }
 
+bool Bushalte::properlyInitialized() {
+    return _initCheck == this;
+}
+
 int Bushalte::getPositie(){
     REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer getPositie werd opgeroepen");
     return positie;
@@ -45,6 +49,4 @@ void Bushalte::setWachttijd(int wachttijd2) {
     ENSURE(wachttijd2 >= 0, "wachttijd kan niet negatief zijn");
 }
 
-bool Bushalte::properlyInitialized() {
-    return _initCheck == this;
-}
+
