@@ -27,6 +27,7 @@ Voertuig::Voertuig() {
     fVolgafstand = 0;
     fSnelheidsverschil = 0;
     fMax_snelheid = fAbs_max_snelheid;
+    fDelta = 0;
 
     fBaan = new Baan;
     ENSURE(this->properlyInitialized(), "De voertuigconstructor is slecht geinitialiseerd");
@@ -93,20 +94,14 @@ void Voertuig::change_positie() {
         return;
     }
     ENSURE((fPositie >= 0 && fPositie <= this->getBaan()->getLengte()),"Positite van jouw voertuig is buiten de baan");
-    ENSURE((fSnelheid >= 0 && fSnelheid <= fAbs_max_snelheid),"Snelheid van jouw voertuig is ongeldig");
-//    ENSURE((fVersnelling >= 0 && fVersnelling <= fMax_versnelling), "Versnelling van jouw voertuig is ongeldig");
 }
 
 
 void Voertuig::change_versnelling(vector<Voertuig*> &vectVoertuigen){
     REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
-    REQUIRE((vectVoertuigen.size() >= 1), "Voertuigen zijn niet op de baan");
 
     unsigned int index = this->fIndexVoertuig;
     ENSURE((index >= 0), "De index van jouw voertuig is kleiner dan 0");
-    if(this->getPositie() == 1){
-        return;
-    }
 
     if(index == vectVoertuigen.size()){
         fDelta = 0;
@@ -179,15 +174,19 @@ double Voertuig::getFMaxRemfactor() {
     return fMax_remfactor;
 }
 
-const string &Voertuig::getType() const {
+const string &Voertuig::getType() {
+    REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
     return type;
 }
 
 void Voertuig::setType(const string &type2) {
+    REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
     Voertuig::type = type2;
+    ENSURE(type2 != "","string mag niet leeg zijn");
 }
 
 void Voertuig::changeTypeVoertuig() {
+    REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
     if(type == "bus"){
         _initCheck = this;
         fLengte = 12;
@@ -248,10 +247,13 @@ void Voertuig::changeTypeVoertuig() {
     }
 }
 
-const string &Voertuig::getAfkortingType() const {
+const string &Voertuig::getAfkortingType(){
+    REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
     return afkortingType;
 }
 
 void Voertuig::setAfkortingType(const string &afkortingType2) {
+    REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
     Voertuig::afkortingType = afkortingType2;
+    ENSURE(afkortingType != "", "Een voertuig moet een afkorting hebben");
 }

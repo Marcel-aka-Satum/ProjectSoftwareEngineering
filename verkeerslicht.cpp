@@ -106,7 +106,10 @@ bool Verkeerslicht::properlyInitialized() {
 }
 
 void Verkeerslicht::simulatieVerkeer(double fTijd, vector<Voertuig*>& vectVoertuigen) {
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer simulatieverkeer werd opgeroepen");
     this->changeState(fTijd);
+    ENSURE(fTijd >= 0,"tijd kan niet negatief zijn");
+    ENSURE(!vectVoertuigen.empty(),"vector mag niet leeg zijn");
 }
 
 

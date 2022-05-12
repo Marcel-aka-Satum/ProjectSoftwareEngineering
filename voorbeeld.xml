@@ -1,33 +1,32 @@
 <ROOT>
     <BAAN>
-        <naam>Eenteststraat</naam>
+        <naam>Middelheimlaan</naam>
         <lengte>1000</lengte>
     </BAAN>
 
-    <BUSHALTE>
-        <baan>Eenteststraat</baan>
+    <VERKEERSLICHT>
+        <baan>Middelheimlaan</baan>
         <positie>250</positie>
+        <cyclus>20</cyclus>
+    </VERKEERSLICHT>
+
+    <BUSHALTE>
+        <baan>Middelheimlaan</baan>
+        <positie>300</positie>
         <wachttijd>20</wachttijd>
     </BUSHALTE>
 
     <BUSHALTE>
-        <baan>Eenteststraat</baan>
+        <baan>Middelheimlaan</baan>
         <positie>550</positie>
         <wachttijd>20</wachttijd>
     </BUSHALTE>
 
-    <VERKEERSLICHT>
-        <baan>Eenteststraat</baan>
-        <positie>700</positie>
-        <cyclus>10</cyclus>
-    </VERKEERSLICHT>
 
     <VOERTUIG>
-        <baan>Eenteststraat</baan>
-        <positie>100</positie>
-        <type>politiecombi</type>
+        <baan>Middelheimlaan</baan>
+        <positie>60</positie>
+        <type>bus</type>
     </VOERTUIG>
 
 </ROOT>
-
-

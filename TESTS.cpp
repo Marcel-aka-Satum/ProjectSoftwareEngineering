@@ -5,6 +5,8 @@
 #include "testVoertuig.h"
 #include "testBaan.h"
 #include "testGenerator.h"
+#include "testBushalte.h"
+#include "testKruispunt.h"
 
 
 int main(int argc, char **argv){

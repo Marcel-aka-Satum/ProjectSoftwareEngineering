@@ -13,6 +13,8 @@ class Baan;
 
 class Bushalte {
 private:
+    Bushalte* _initCheck;
+
     int positie;
 
     Baan* baan;
@@ -22,15 +24,17 @@ private:
 public:
     Bushalte();
 
-    int getPositie() const;
+    bool properlyInitialized();
+
+    int getPositie();
 
     void setPositie(int positie2);
 
-    Baan *getBaan() const;
+    Baan *getBaan();
 
     void setBaan(Baan *baan);
 
-    int getWachttijd() const;
+    int getWachttijd();
 
     void setWachttijd(int wachttijd);
 

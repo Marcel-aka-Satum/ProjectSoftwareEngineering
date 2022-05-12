@@ -18,7 +18,7 @@ public:
 
 TEST_F(testVoertuig, testSnelheid){
     Voertuig* v1 = new Voertuig;
-    ASSERT_EQ(0, v1->getSnelheid());
+    ASSERT_EQ(16.6, v1->getSnelheid());
 }
 
 TEST_F(testVoertuig, testMaxSnelheid){

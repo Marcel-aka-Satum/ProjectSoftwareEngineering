@@ -13,10 +13,16 @@ class Baan;
 class Kruispunt {
 private:
     int positie;
+
+    Kruispunt* _initCheck;
 public:
-    int getPositie() const;
+    Kruispunt();
+
+    int getPositie();
 
     void setPositie(int positie);
+
+    bool properlyInitialized();
 };
 
 

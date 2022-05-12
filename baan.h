@@ -77,7 +77,7 @@ public:
 
     void simpel_uitvoer();
 
-    double getFSimulatietijd() const;
+    double getFSimulatietijd();
 
     void setFSimulatietijd(double fSimulatietijd2);
 
@@ -89,11 +89,12 @@ public:
 
     void addToGeneratoren(Voertuiggenerator* generator1);
 
-    void simulatieVoertuiggenerator();
+    void simulatieVoertuiggenerator(double &generatorTijd, vector<Voertuig*> &vectVoertuigen2);
 
-    double getFSpawnTime() const;
+    double getFSpawnTime();
 
     void setFSpawnTime(double fSpawnTime2);
+
 
 };
 

@@ -75,6 +75,7 @@ int Baan::searchVoertuig(Voertuig* v, Baan b1, vector<Voertuig*> vectVoertuigen2
 
 void Baan::insertionSort(vector<Voertuig*> &vectVoertuigen2){
     REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer insertionSort werd opgeroepen");
+    REQUIRE(!vectVoertuigen2.empty(),"vector van voertuigen mag niet leeg zijn voor sort functie");
     int n = vectVoertuigen2.size() - 1;
     int key;
     int j;
@@ -95,26 +96,35 @@ bool Baan::properlyInitialized() {
 }
 
 vector<Verkeerslicht *> &Baan::getFVerkeerslichten(){
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer getFVerkeerslichten werd opgeroepen");
     return fVerkeerslichten;
 }
 
 void Baan::setTijd(int tijd2) {
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer setTijd werd opgeroepen");
     Baan::fTijd = tijd2;
 }
 
 void Baan::addVerkeerslicht(Verkeerslicht* v1){
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer addVerkeerslicht werd opgeroepen");
     fVerkeerslichten.push_back(v1);
 }
 
 void Baan::addToKruispunten(Kruispunt *k1) {
+
     fKruispunten.push_back(k1);
 }
 
 vector<Kruispunt *> &Baan::getFKruispunten(){
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer addToKruispunten werd opgeroepen");
     return fKruispunten;
 }
-
+/* void Baan:: simpel_uitvoer();
+ * Deze functie print in de console huidige staat van elk voertuig op de baan en laat die ook bewegen.
+ * */
 void Baan:: simpel_uitvoer() {
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer simpel_uitvoer werd opgeroepen");
+    REQUIRE(!vectVoertuigen.empty(),"vector van voetuigen mag niet leeg zijn");
     insertionSort(vectVoertuigen);
     while (!vectVoertuigen.empty()) {
         cout << "Tijd: " << fTijd << endl;
@@ -129,6 +139,7 @@ void Baan:: simpel_uitvoer() {
             }
             vectVoertuigen[i]->change_versnelling(vectVoertuigen);
             if(fSimulatietijd >= 0.966){
+                fSpawnTime += 1;
                 fTijd += 1;
                 fSimulatietijd = 0;
                 for(long long unsigned int k = 0; k <= fVerkeerslichten.size() -1 ;k++){
@@ -143,26 +154,29 @@ void Baan:: simpel_uitvoer() {
                 fVerkeerslichten[k]->actieAuto(vectVoertuigen);
             }
         }
-
+        ENSURE(fSimulatietijd <= 1,"simulatie tijd moet vanaf 1 terug gereset worden.");
     }
 }
 
-double Baan::getFSimulatietijd() const {
+double Baan::getFSimulatietijd(){
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer getFsimulatietijd werd opgeroepen");
     return fSimulatietijd;
 }
 
 void Baan::setFSimulatietijd(double fSimulatietijd2) {
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer setFSimulatietijd werd opgeroepen");
     Baan::fSimulatietijd = fSimulatietijd2;
 }
 
 /* void Baan::grafischeImpressie();
+ * Functie die een OUTPUTverkeer.txt bestand maakt met huidige posities van voertuigen/verkeerslichten etc.
  * Wiskunde erachter: Deel de lengte van de baan / 10 en zo veel '=' gaan er zijn. Vervolgens kijk of dat er op die positie een voertuig is.
  * */
 void Baan::grafischeImpressie() {
     REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer grafischImpressie werd opgeroepen");
     ofstream new_file("OUTPUTverkeer.txt");
     //BAAN
-    new_file << this->getNaam() << "         | ";
+    new_file << this->getNaam() << "        | ";
     for(int i = 0; i < this->getLengte() / 10; i++){
         int pos = i * 10;
         bool found = false;
@@ -179,7 +193,7 @@ void Baan::grafischeImpressie() {
     }
     new_file << endl;
     // > verkeerslichten
-    new_file << " > verkeerslichten     |";
+    new_file << " > verkeerslichten    |";
     for(int j = 0; j < this->getLengte() /10; j++){
         int pos = j * 10;
         bool found = false;
@@ -210,7 +224,7 @@ void Baan::grafischeImpressie() {
     new_file << endl;
     // > bushaltes
     if(fBushaltes.size() > 0){
-        new_file << " > bushaltes           |";
+        new_file << " > bushaltes          |";
         for(int j = 0; j < this->getLengte() /10; j++){
             int pos = j * 10;
             bool found = false;
@@ -231,39 +245,55 @@ void Baan::grafischeImpressie() {
 }
 
 void Baan::addBushalteToVector(Bushalte *b1) {
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer addBushalteToVector werd opgeroepen");
     fBushaltes.push_back(b1);
 }
 
 void Baan::addToGeneratoren(Voertuiggenerator *generator1) {
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer addToGeneratore werd opgeroepen");
     fGeneratoren.push_back(generator1);
 }
-
-void Baan::simulatieVoertuiggenerator() {
+/* void Baan::simulatieVoertuiggenerator(double &generatorTijd);
+ * Voeg autos toe op positie 0 indien er geen autos zijn tussen positie 0 en 2* de lengte van een voertuig
+ * 3. FOR elke voertuiggenerator
+ * 3.1 IF tijd sinds laatste voertuig > frequentie
+ * 3.1.1 IF geen voertuig op baan tussen posities 0 en 2l
+ * 3.1.1.1 THEN voeg voertuig toe aan baan op positie 0
+ * */
+void Baan::simulatieVoertuiggenerator(double &generatorTijd, vector<Voertuig*> &vectVoertuigen2) {
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer addToGeneratore werd opgeroepen");
+    REQUIRE(fGeneratoren.size() > 0,"Er moet tenminstens 1 generator zijn zodat simulatie met voertuiggenerator wordt aangeroepen");
     for(long long unsigned int k = 0; k <= fGeneratoren.size() -1; k++){
-        if(fTijd > fGeneratoren[k]->getFrequentie()){ // HIER MOGELIJKE ERROR WAT IS TIJD SINDS LAATSTE VOERTUIG????
+        if(generatorTijd - fGeneratoren[k]->getFrequentie() == 0){
+            generatorTijd = 0;
             string typeGenerator = fGeneratoren[k]->getType();
             Voertuig* v = new Voertuig;
             v->setPositie(0);
             v->setType(typeGenerator);
+            v->setFindexVoertuig(vectVoertuigen2.size()+1);
+            v->setBaan(this);
             v->changeTypeVoertuig();
             bool found = false; // TRUE indien voertuig tussen positie 0 en 2l
-            for(long long unsigned int i = 0; i <= vectVoertuigen.size()-1; i++){
-                if(vectVoertuigen[i]->getPositie() >= 0 && vectVoertuigen[i]->getPositie() <= v->getFLengte()){
+            for(long long unsigned int i = 0; i <= vectVoertuigen2.size()-1; i++){
+                if(vectVoertuigen2[i]->getPositie() >= 0 && vectVoertuigen2[i]->getPositie() <= v->getFLengte()){
                     found = true;
                     break;
                 }
             }
             if(!found){
-                vectVoertuigen.push_back(v);
+                vectVoertuigen2.push_back(v);
             }
         }
     }
 }
 
-double Baan::getFSpawnTime() const {
+double Baan::getFSpawnTime(){
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer addToGeneratore werd opgeroepen");
     return fSpawnTime;
 }
 
 void Baan::setFSpawnTime(double fSpawnTime2) {
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer addToGeneratore werd opgeroepen");
     Baan::fSpawnTime = fSpawnTime2;
+    ENSURE(fSpawnTime >= 0, "De tijd kan niet negatief zijn");
 }

@@ -128,9 +128,9 @@ void startParsing2(vector<Baan*>& banen){
             } else if(elemName == "KRUISPUNT" && elemName2 == "baan"){
                 for(long long unsigned int i = 0; i <= banen.size()-1; i++){
                     if(banen[i]->getNaam() == k->GetText()){
-                       k1->setPositie(k->FirstAttribute()->IntValue());
-                       banen[i]->addToKruispunten(k1);
-                       break;
+                        k1->setPositie(k->FirstAttribute()->IntValue());
+                        banen[i]->addToKruispunten(k1);
+                        break;
                     }
                 }
             }else{ // 2.1 UITZONDERING!!!
