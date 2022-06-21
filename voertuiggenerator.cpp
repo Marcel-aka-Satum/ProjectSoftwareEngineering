@@ -51,4 +51,3 @@ void Voertuiggenerator::setType(const string &type2) {
 
 
 
-

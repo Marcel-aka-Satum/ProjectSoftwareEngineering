@@ -201,7 +201,7 @@ public:
      \n ENSURE(fSpawnTime >= 0, "De tijd kan niet negatief zijn");
      */
 
-
+    void simpel_uitvoer_happyday();
 
 };
 

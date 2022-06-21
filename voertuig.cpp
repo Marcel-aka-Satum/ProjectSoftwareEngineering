@@ -28,7 +28,6 @@ Voertuig::Voertuig() {
     fSnelheidsverschil = 0;
     fMax_snelheid = fAbs_max_snelheid;
     fDelta = 0;
-
     fBaan = new Baan;
     ENSURE(this->properlyInitialized(), "De voertuigconstructor is slecht geinitialiseerd");
 }
@@ -106,14 +105,15 @@ void Voertuig::change_versnelling(vector<Voertuig*> &vectVoertuigen){
     if(index == vectVoertuigen.size()){
         fDelta = 0;
     } else{
-        fVolgafstand = vectVoertuigen[index+1]->getPositie() - vectVoertuigen[index]->getPositie() - vectVoertuigen[index + 1]->getFLengte();
-        fSnelheidsverschil = vectVoertuigen[index]->getSnelheid() - vectVoertuigen[index + 1]->getSnelheid();
-        fDelta = vectVoertuigen[index]->getFMinVolgafstand() + max(0.0, fSnelheid + (fSnelheid * fSnelheidsverschil) / (2 * (sqrt((fMax_versnelling * fMax_remfactor)))));
+        fVolgafstand = vectVoertuigen[index]->getPositie() - vectVoertuigen[index-1]->getPositie() - vectVoertuigen[index]->getFLengte();
+        fSnelheidsverschil = vectVoertuigen[index-1]->getSnelheid() - vectVoertuigen[index]->getSnelheid();
+        fDelta = vectVoertuigen[index-1]->getFMinVolgafstand() + max(0.0, fSnelheid + (fSnelheid * fSnelheidsverschil) / (2 * (sqrt((fMax_versnelling * fMax_remfactor)))));
+        fDelta = fDelta / fVolgafstand;
     }
 
     fVersnelling = fMax_versnelling * (1 - pow((fSnelheid / fMax_snelheid), 4) - (pow(fDelta, 2)));
     ENSURE((fVolgafstand >= 0), "Volgafstand tussen jouw 2 voertuigen is niet correct");
-    ENSURE((fSnelheidsverschil >= 0), "De snelheidsverschil van jouw voertuig is kleiner dan 0");
+//    ENSURE((fSnelheidsverschil >= 0), "De snelheidsverschil van jouw voertuig is kleiner dan 0");
 }
 
 int Voertuig::getFindexVoertuig(){
@@ -149,14 +149,13 @@ bool Voertuig::checkInBaan(Baan& b1, vector<Voertuig*> vectVoertuigen){
 }
 
 void Voertuig::verwijderUitBaan(Baan& b1, vector<Voertuig*> vectVoertuigen){
-    REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
     b1.getVectVoertuigen().pop_back();
 }
 
 void Voertuig::vertragen() {
     REQUIRE(this->properlyInitialized(), "De constructor is slecht geinitialiseerd");
     ENSURE(fMax_snelheid >= 0, "De Max_snelheid van jouw voertuig is niet correct");
-    fMax_versnelling = fVertraagfactor * fAbs_max_snelheid;
+    fMax_snelheid = fVertraagfactor * fAbs_max_snelheid;
 }
 
 void Voertuig::versnellen() {

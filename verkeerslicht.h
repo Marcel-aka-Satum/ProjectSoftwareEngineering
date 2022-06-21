@@ -105,8 +105,6 @@ public:
      \n ENSURE(!vectVoertuigen.empty(),"vector mag niet leeg zijn");
      */
 
-
-
 };
 
 

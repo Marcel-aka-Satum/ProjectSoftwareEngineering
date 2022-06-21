@@ -111,9 +111,8 @@ void Baan::addVerkeerslicht(Verkeerslicht* v1){
 }
 
 void Baan::addToKruispunten(Kruispunt *k1) {
-    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer addToKruispunten werd opgeroepen");
+
     fKruispunten.push_back(k1);
-    ENSURE(k1 != NULL, "het moet een kruipunt zijn");
 }
 
 vector<Kruispunt *> &Baan::getFKruispunten(){
@@ -143,16 +142,19 @@ void Baan:: simpel_uitvoer() {
                 fSpawnTime += 1;
                 fTijd += 1;
                 fSimulatietijd = 0;
-                for(long long unsigned int k = 0; k <= fVerkeerslichten.size() -1 ;k++){
-                    fVerkeerslichten[k]->changeState(fTijd);
+                if(fVerkeerslichten.size() > 0){
+                    for(long long unsigned int k = 0; k <= fVerkeerslichten.size() -1 ;k++){
+                        fVerkeerslichten[k]->changeState(fTijd);
+                    }
                 }
             } else{
                 fSimulatietijd += 0.0166;
             }
-
-            for(long long unsigned int k = 0; k <= fVerkeerslichten.size() -1 ;k++){
-                cout << "Het is momenteel " << fVerkeerslichten[k]->getFCurrentKleurState() << " voor het verkeerslicht op positie: " << fVerkeerslichten[k]->getPositie() << endl;
-                fVerkeerslichten[k]->actieAuto(vectVoertuigen);
+            if(fVerkeerslichten.size() > 0){
+                for(long long unsigned int k = 0; k <= fVerkeerslichten.size() -1 ;k++){
+                    cout << "Het is momenteel " << fVerkeerslichten[k]->getFCurrentKleurState() << " voor het verkeerslicht op positie: " << fVerkeerslichten[k]->getPositie() << endl;
+                    fVerkeerslichten[k]->actieAuto(vectVoertuigen);
+                }
             }
         }
         ENSURE(fSimulatietijd <= 1,"simulatie tijd moet vanaf 1 terug gereset worden.");
@@ -194,35 +196,38 @@ void Baan::grafischeImpressie() {
     }
     new_file << endl;
     // > verkeerslichten
-    new_file << " > verkeerslichten    |";
-    for(int j = 0; j < this->getLengte() /10; j++){
-        int pos = j * 10;
-        bool found = false;
-        if(fVerkeerslichten.size() > 0){
-            for(long long unsigned int i = 0; i <= fVerkeerslichten.size() -1; i++){
-                if(pos == fVerkeerslichten[i]->getPositie()){
-                    new_file << "G";
-                    found = true;
-                    break;
+    if(fVerkeerslichten.size() > 0){
+        new_file << " > verkeerslichten    |";
+        for(int j = 0; j < this->getLengte() /10; j++){
+            int pos = j * 10;
+            bool found = false;
+            if(fVerkeerslichten.size() > 0){
+                for(long long unsigned int i = 0; i <= fVerkeerslichten.size() -1; i++){
+                    if(pos == fVerkeerslichten[i]->getPositie()){
+                        new_file << "G";
+                        found = true;
+                        break;
+                    }
                 }
             }
-        }
 
-        if(fBushaltes.size() > 0){
-            for(long long unsigned int k = 0; k <= fBushaltes.size()-1; k++){
-                if(pos == fBushaltes[k]->getPositie()){
-                    new_file << "|";
-                    found = true;
-                    break;
+            if(fBushaltes.size() > 0){
+                for(long long unsigned int k = 0; k <= fBushaltes.size()-1; k++){
+                    if(pos == fBushaltes[k]->getPositie()){
+                        new_file << "|";
+                        found = true;
+                        break;
+                    }
                 }
             }
-        }
 
-        if(!found){
-            new_file << " ";
+            if(!found){
+                new_file << " ";
+            }
         }
+        new_file << endl;
     }
-    new_file << endl;
+
     // > bushaltes
     if(fBushaltes.size() > 0){
         new_file << " > bushaltes          |";
@@ -297,4 +302,40 @@ void Baan::setFSpawnTime(double fSpawnTime2) {
     REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer addToGeneratore werd opgeroepen");
     Baan::fSpawnTime = fSpawnTime2;
     ENSURE(fSpawnTime >= 0, "De tijd kan niet negatief zijn");
+}
+/*
+ * deze functie wordt gebruikt bij het testen van happyday xml test
+ * deze functie voert simulatie uit op alles wat er op de baan zit en laat niks zien in de console zodat de testen duidelijk blijven
+ * */
+void Baan::simpel_uitvoer_happyday() {
+    REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer simpel_uitvoer werd opgeroepen");
+    REQUIRE(!vectVoertuigen.empty(),"vector van voetuigen mag niet leeg zijn");
+    insertionSort(vectVoertuigen);
+    while (!vectVoertuigen.empty()) {
+        for (long long unsigned int i = 0; i <= vectVoertuigen.size() - 1; i++) {
+            vectVoertuigen[i]->change_positie();
+            if(vectVoertuigen.size() == 0){
+                return;
+            }
+            vectVoertuigen[i]->change_versnelling(vectVoertuigen);
+            if(fSimulatietijd >= 0.966){
+                fSpawnTime += 1;
+                fTijd += 1;
+                fSimulatietijd = 0;
+                if(fVerkeerslichten.size() > 0){
+                    for(long long unsigned int k = 0; k <= fVerkeerslichten.size() -1 ;k++){
+                        fVerkeerslichten[k]->changeState(fTijd);
+                    }
+                }
+            } else{
+                fSimulatietijd += 0.0166;
+            }
+            if(fVerkeerslichten.size() > 0){
+                for(long long unsigned int k = 0; k <= fVerkeerslichten.size() -1 ;k++){
+                    fVerkeerslichten[k]->actieAuto(vectVoertuigen);
+                }
+            }
+        }
+        ENSURE(fSimulatietijd <= 1,"simulatie tijd moet vanaf 1 terug gereset worden.");
+    }
 }

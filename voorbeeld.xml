@@ -1,32 +1,21 @@
 <ROOT>
     <BAAN>
-        <naam>Middelheimlaan</naam>
-        <lengte>1000</lengte>
+    <naam>Middelheimlaan</naam>
+    <lengte>1000</lengte>
     </BAAN>
+
+    <VOERTUIG>
+    <baan>Middelheimlaan</baan>
+    <positie>20</positie>
+    <type>auto</type>
+    </VOERTUIG>
+
 
     <VERKEERSLICHT>
         <baan>Middelheimlaan</baan>
-        <positie>250</positie>
-        <cyclus>20</cyclus>
+        <positie>550</positie>
+        <cyclus>2</cyclus>
     </VERKEERSLICHT>
 
-    <BUSHALTE>
-        <baan>Middelheimlaan</baan>
-        <positie>300</positie>
-        <wachttijd>20</wachttijd>
-    </BUSHALTE>
-
-    <BUSHALTE>
-        <baan>Middelheimlaan</baan>
-        <positie>550</positie>
-        <wachttijd>20</wachttijd>
-    </BUSHALTE>
-
-
-    <VOERTUIG>
-        <baan>Middelheimlaan</baan>
-        <positie>60</positie>
-        <type>bus</type>
-    </VOERTUIG>
 
 </ROOT>

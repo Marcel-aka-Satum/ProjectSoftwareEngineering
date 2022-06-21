@@ -11,10 +11,6 @@ Kruispunt::Kruispunt() {
     ENSURE(this->properlyInitialized(), "Kruispunt constructor moet goed geinitialiseerd worden");
 }
 
-bool Kruispunt::properlyInitialized() {
-    return _initCheck == this;
-}
-
 int Kruispunt::getPositie() {
     REQUIRE(this->properlyInitialized(),"was niet geinitialiseerd wanneer getPositie werd opgeroepen");
     return positie;
@@ -26,4 +22,6 @@ void Kruispunt::setPositie(int positie2) {
     ENSURE(positie2 >= 0,"de positie kan niet negatief zijn");
 }
 
-
+bool Kruispunt::properlyInitialized() {
+    return _initCheck == this;
+}
