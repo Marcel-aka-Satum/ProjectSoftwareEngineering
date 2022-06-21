@@ -1,0 +1,2 @@
+XML PARTIAL IMPORT: Illegal lengte value
+XML PARTIAL IMPORT: Illegal positie value

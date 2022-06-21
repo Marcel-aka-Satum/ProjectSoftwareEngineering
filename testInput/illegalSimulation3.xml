@@ -1,0 +1,14 @@
+<ROOT>
+    <!-- positie of VOERTUIG needs to be between 0 and lengte of BAAN -->
+    <BAAN>
+        <naam>Middelheimlaan</naam>
+        <lengte>500</lengte>
+    </BAAN>
+
+    <VOERTUIG>
+        <baan>Middelheimlaan</baan>
+        <positie>600</positie>
+        <type>bus</type>
+    </VOERTUIG>
+
+</ROOT>

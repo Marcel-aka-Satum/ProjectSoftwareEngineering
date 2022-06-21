@@ -1,0 +1,2 @@
+XML PARTIAL IMPORT: Illegal value of VOERTUIG
+XML PARTIAL IMPORT: Illegal positie value

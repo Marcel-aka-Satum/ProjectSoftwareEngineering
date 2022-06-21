@@ -1,0 +1,7 @@
+<ROOT>
+    <!-- the ending tag of 'lengte' is missing a '/'-->
+    <BAAN>
+        <naam>Middelheimlaan</naam>
+        <lengte>100<lengte>
+    </BAAN>
+</ROOT>

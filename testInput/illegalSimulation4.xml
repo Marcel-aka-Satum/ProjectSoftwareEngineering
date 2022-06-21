@@ -1,0 +1,20 @@
+<ROOT>
+    <!-- VOERTUIG needs to be in a BAAN that exist -->
+    <BAAN>
+        <naam>Middelheimlaan</naam>
+        <lengte>500</lengte>
+    </BAAN>
+
+    <VOERTUIG>
+        <baan>Middelheimlaan</baan>
+        <positie>200</positie>
+        <type>bus</type>
+    </VOERTUIG>
+
+    <VOERTUIG>
+        <baan>Nietbestandebaan</baan>
+        <positie>300</positie>
+        <type>bus</type>
+    </VOERTUIG>
+
+</ROOT>

@@ -1,0 +1,15 @@
+<ROOT>
+    <!-- lengte of BAAN cannot be under 0 -->
+    <!-- positie is now out of range of lengte baan-->
+    <BAAN>
+        <naam>Middelheimlaan</naam>
+        <lengte>-200</lengte>
+    </BAAN>
+
+    <VOERTUIG>
+        <baan>Middelheimlaan</baan>
+        <positie>60</positie>
+        <type>bus</type>
+    </VOERTUIG>
+
+</ROOT>
